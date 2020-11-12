@@ -12,7 +12,7 @@ public interface Controller  <T>{
 
     public T getElementById(String str) throws IOException;
 
-    public T Update(T post) throws IOException ;
+    public T update(T post) throws IOException ;
 
     public List<T> getAll() throws IOException ;
 }

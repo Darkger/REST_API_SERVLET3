@@ -38,7 +38,7 @@ RegionRepository regionRepository = new RegionRepositoryImpl();
         }
     }
 
-    public User Update(User user) throws IOException {
+    public User update(User user) throws IOException {
 
         user = userRepository.update(user);
         if (user != null) {

@@ -3,8 +3,9 @@ package com.eugene.crude.crude.practic.view;
 
 
 import com.eugene.crude.crude.practic.controller.ControllerImpl.RegionControllerImpl;
-import com.eugene.crude.crude.practic.model.PostOrRegion;
-import com.eugene.crude.crude.practic.model.PostOrRegionImpl;
+import com.eugene.crude.crude.practic.factory.RegionFactory;
+import com.eugene.crude.crude.practic.factory.FactoryImpl.RegionFactoryImpl;
+
 import com.eugene.crude.crude.practic.model.Region;
 
 
@@ -16,14 +17,14 @@ import java.util.List;
 
 public class RegionView implements  View {
     RegionControllerImpl regionController = new RegionControllerImpl();
-    PostOrRegionImpl postOrRegion = new PostOrRegionImpl();
+    RegionFactory regionFactory= new RegionFactoryImpl();
     public void viewDeleteById(String str) throws IOException {
 
         regionController.deleteById(str);
         System.out.println("Регино с id=" + str + " удален из файла");
     }
 
-    public void viewSave(PostOrRegion region) throws IOException {
+    public void viewSave(Region region) throws IOException {
 
         region = regionController.save(region);
         if (region != null)
@@ -33,28 +34,27 @@ public class RegionView implements  View {
 
     public void viewGetAll() throws IOException {
 
-        List<PostOrRegion> regionList = regionController.getAll();
+        List<Region> regionList = regionController.getAll();
         if (regionList.isEmpty())
             System.out.println("Файл пуст");
         else {
             System.out.println("Список регионов:");
-            for (PostOrRegion region : regionList) {
+            for (Region region : regionList) {
                 System.out.println(region.getId() + "," + region.getContent());
             }
         }
     }
 
-    public void viewUpdate(PostOrRegion region) throws IOException {
+    public void viewUpdate(Region region) throws IOException {
 
-        PostOrRegion region1 = regionController.Update(region);
+        Region region1 = regionController.update(region);
         if (region1 != null)
             System.out.println("Идентификатор id=" + region.getId() + " теперь присвоен региону '" + region.getContent() + "'");
         else System.out.println("Ошибка:Регион не может быть изменен");
     }
 
     public void viewGetRegionById(String str) throws IOException {
-
-        PostOrRegion region = regionController.getElementById(str);
+        Region region = regionController.getElementById(str);
         if (region != null)
             System.out.println("Идентификатор id=" + region.getId() + "принадлежит Региону '" + region.getContent());
         else System.out.println("Регион не найден!");
@@ -91,7 +91,7 @@ public class RegionView implements  View {
                 System.out.println("Введите Регион: ");
                 String regionName = reader.readLine();
 
-                PostOrRegion region = postOrRegion.createPostOrRegion("region");
+                Region region = regionFactory.create();
                 region.setId(id);
                 region.setContent(regionName);
                 viewSave(region);
@@ -102,7 +102,7 @@ public class RegionView implements  View {
                 String id = reader.readLine();
                 System.out.println("Введите Регион: ");
                 String regionName = reader.readLine();
-                PostOrRegion region =  postOrRegion.createPostOrRegion("region");
+                Region region =  regionFactory.create();
                 region.setId(id);
                 region.setContent(regionName);
                 viewUpdate(region);

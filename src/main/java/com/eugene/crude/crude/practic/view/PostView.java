@@ -1,16 +1,14 @@
 package com.eugene.crude.crude.practic.view;
 
 
-import com.eugene.crude.crude.practic.controller.Controller;
-
 import com.eugene.crude.crude.practic.controller.ControllerImpl.PostControllerImpl;
 
 import com.eugene.crude.crude.practic.controller.PostController;
+import com.eugene.crude.crude.practic.factory.PostFactory;
+import com.eugene.crude.crude.practic.factory.FactoryImpl.PostFactoryImpl;
 import com.eugene.crude.crude.practic.model.Post;
-import com.eugene.crude.crude.practic.model.PostOrRegion;
-import com.eugene.crude.crude.practic.model.PostOrRegionFactory;
-import com.eugene.crude.crude.practic.model.PostOrRegionFactoryImpl.PostFactoryImpl;
-import com.eugene.crude.crude.practic.model.PostOrRegionImpl;
+
+
 
 
 import java.io.BufferedReader;
@@ -19,7 +17,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 public class PostView implements View {
-    PostOrRegionImpl postOrRegion = new PostOrRegionImpl();
+    PostFactory postFactory = new PostFactoryImpl();
     PostController postController =  new PostControllerImpl();
     public void viewDeleteById(String str) throws IOException {
 
@@ -27,7 +25,7 @@ public class PostView implements View {
         System.out.println("Пост с id=" + str + " удален из файла");
     }
 
-    public void viewSave(PostOrRegion post) throws IOException {
+    public void viewSave(Post post) throws IOException {
 
         post = postController.save(post);
         if (post != null)
@@ -37,20 +35,20 @@ public class PostView implements View {
 
     public void viewGetAll() throws IOException {
 
-        List<PostOrRegion> regionList = postController.getAll();
+        List<Post> regionList = postController.getAll();
         if (regionList==null)
             System.out.println("Файл пуст");
         else {
             System.out.println("Список постов:");
-            for (PostOrRegion region : regionList) {
+            for (Post region : regionList) {
                 System.out.println(region.getId() + "," + region.getContent());
             }
         }
     }
 
-    public void viewUpdate(PostOrRegion post) throws IOException {
+    public void viewUpdate(Post post) throws IOException {
 
-        PostOrRegion post1 = postController.Update(post);
+        Post post1 = postController.update(post);
         if (post1 != null)
             System.out.println("Идентификатор id=" + post.getId() + " теперь присвоен посту '" + post.getContent() + "'");
         else System.out.println("Ошибка:Пост не может быть изменен");
@@ -58,7 +56,7 @@ public class PostView implements View {
 
     public void viewGetElementById(String str) throws IOException {
 
-        PostOrRegion post = postController.getElementById(str);
+        Post post = postController.getElementById(str);
         if (post != null)
             System.out.println("Идентификатор id=" + post.getId() + "принадлежит посту '" + post.getContent());
         else System.out.println("Пост не найден!");
@@ -109,7 +107,7 @@ public class PostView implements View {
                 }
                 System.out.println("Введите Пост: ");
                 String regionName = reader.readLine();
-                PostOrRegion post = postOrRegion.createPostOrRegion("post");
+                Post post = postFactory.create();
                 post.setId(id);
                 post.setContent(regionName);
                 viewSave(post);
@@ -120,7 +118,7 @@ public class PostView implements View {
                 String id = reader.readLine();
                 System.out.println("Введите пост: ");
                 String regionName = reader.readLine();
-                PostOrRegion post = postOrRegion.createPostOrRegion("post");
+                Post post = postFactory.create();
                 post.setId(id);
                 post.setContent(regionName);
                 viewUpdate(post);

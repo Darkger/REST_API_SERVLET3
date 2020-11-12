@@ -10,7 +10,7 @@ public class ViewHelper {
       View userView = new UserView();
       View postView = new PostView();
       View regionView = new RegionView();
-      viewSetter.setView(regionView);
+      viewSetter.setView(userView);
 
        while (!check.equals("N")) {
           check= viewSetter.Do();

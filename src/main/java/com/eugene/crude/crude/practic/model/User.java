@@ -6,8 +6,8 @@ public class User {
     String id;
     String firstName;
     String lasName;
-    List<PostOrRegion> posts;
-    PostOrRegion region;
+    List<Integer> posts;
+    int region;
 
 
     public String getId() {
@@ -34,26 +34,26 @@ public class User {
         this.lasName = lasName;
     }
 
-    public List<PostOrRegion> getPosts() {
+    public List<Integer> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<PostOrRegion> posts) {
+    public void setPosts(List<Integer> posts) {
         this.posts = posts;
     }
 
-    public  PostOrRegion getRegion() {
+    public  Integer getRegion() {
         return region;
     }
 
-    public void setRegion(PostOrRegion region) {
+    public void setRegion(Integer region) {
         this.region = region;
     }
 
     public User() {
     }
 
-    public User(String id, String firstName, String lastName, List<PostOrRegion> posts, PostOrRegion region) {
+    public User(String id, String firstName, String lastName, List<Integer> posts, Integer region) {
         this.id = id;
         this.firstName = firstName;
         this.lasName= lastName;

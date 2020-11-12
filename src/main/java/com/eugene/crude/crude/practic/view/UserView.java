@@ -5,6 +5,10 @@ import com.eugene.crude.crude.practic.controller.ControllerImpl.PostControllerIm
 import com.eugene.crude.crude.practic.controller.ControllerImpl.RegionControllerImpl;
 
 import com.eugene.crude.crude.practic.controller.ControllerImpl.UserControllerImpl;
+import com.eugene.crude.crude.practic.factory.RegionFactory;
+import com.eugene.crude.crude.practic.factory.FactoryImpl.RegionFactoryImpl;
+import com.eugene.crude.crude.practic.factory.UserFactory;
+import com.eugene.crude.crude.practic.factory.FactoryImpl.UserFactoryImpl;
 import com.eugene.crude.crude.practic.model.*;
 
 import java.io.BufferedReader;
@@ -14,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserView  implements  View{
-    PostOrRegionImpl postOrRegion = new PostOrRegionImpl();
+    UserFactory userFactory = new UserFactoryImpl();
+    RegionFactory regionFactory = new RegionFactoryImpl();
     RegionView regionView= new RegionView();
     UserControllerImpl userController = new UserControllerImpl();
     RegionControllerImpl regionController = new RegionControllerImpl();
@@ -43,13 +48,13 @@ public class UserView  implements  View{
             if (userList != null){
             for (User user: userList) {
                 String str = "";
- List<PostOrRegion> gg = user.getPosts();
-                    for (PostOrRegion p : gg) {
+ List<Integer> gg = user.getPosts();
+                    for (Integer p : gg) {
 
-                            str += p.getId() + ",";
+                            str += p + ",";
                         }
                         str = str.substring(0, str.length() - 1);
-                        System.out.println(user.getId() + "," + user.getFirstName() + "," + user.getLasName() + "," + "[" + str + "]" + "," + user.getRegion().getId());
+                        System.out.println(user.getId() + "," + user.getFirstName() + "," + user.getLasName() + "," + "[" + str + "]" + "," + user.getRegion());
                     }
             }else System.out.println("Список пуст");
         }
@@ -57,7 +62,7 @@ public class UserView  implements  View{
 
     public void viewUpdate(User user) throws IOException {
 
-        User user1 = userController.Update(user);
+        User user1 = userController.update(user);
         if (user1 != null)
             System.out.println("Идентификатор id=" + user.getId() + " теперь присвоен пользователю '" + user.getFirstName()+" "+user.getLasName() + "'");
         else System.out.println("Ошибка:Пользователь не может быть изменен");
@@ -107,16 +112,21 @@ public class UserView  implements  View{
                 String userPostId = reader.readLine();
                 System.out.println("Введите  регион пользователя: ");
                 String userRegion = reader.readLine();
-                List<PostOrRegion> postList = new ArrayList<>();
+                List<Integer> postList = new ArrayList<>();
                 String postArray [] = userPostId.split(",");
                 for(String str1:postArray)
                 {
-                    postList.add(postController.getElementById(str1));
+                    postList.add(Integer.parseInt(postController.getElementById(str1).getId()));
                 }
-                PostOrRegion region = postOrRegion.createPostOrRegion("region");
+                Region region = regionFactory.create();
                 region.setContent(userRegion);
-
-                User user = new User(id, userFirstName,userLastName,postList, regionController.save(region));
+                region = regionController.save(region);
+                User user =userFactory.create();
+                user.setId(id);
+                user.setFirstName(userFirstName);
+                user.setLasName(userLastName);
+                user.setPosts(postList);
+                user.setRegion(Integer.parseInt(region.getId()));
                 viewSave(user);
                 break;
             }
@@ -131,15 +141,22 @@ public class UserView  implements  View{
                 String userPostId = reader.readLine();
                 System.out.println("Введите  регион пользователя: ");
                 String userRegion = reader.readLine();
-                List<PostOrRegion> postList = new ArrayList<>();
+                List<Integer> postList = new ArrayList<>();
                 String postArray [] = userPostId.split(",");
                 for(String str1:postArray)
                 {
-                    postList.add(postController.getElementById(str1));
+                    postList.add(Integer.parseInt(postController.getElementById(str1).getId()));
                 }
-                PostOrRegion region = postOrRegion.createPostOrRegion("region");
+                Region region = regionFactory.create();
                 region.setContent(userRegion);
-                User user = new User(id, userFirstName,userLastName,postList,regionController.save(region));
+                region = regionController.save(region);
+                User user =userFactory.create();
+                user.setId(id);
+                user.setFirstName(userFirstName);
+                user.setLasName(userLastName);
+                user.setPosts(postList);
+                user.setRegion(Integer.parseInt(region.getId()));
+
                 viewUpdate(user);
                 break;
             }

@@ -4,7 +4,6 @@ package com.eugene.crude.crude.practic.controller.ControllerImpl;
 import com.eugene.crude.crude.practic.controller.PostController;
 import com.eugene.crude.crude.practic.model.Post;
 
-import com.eugene.crude.crude.practic.model.PostOrRegion;
 import com.eugene.crude.crude.practic.repository.PostRepository;
 import com.eugene.crude.crude.practic.repository.repositoryIO.PostRepositoryImpl;
 
@@ -18,13 +17,13 @@ public class PostControllerImpl  implements PostController {
 
 
 
-    public PostOrRegion save(PostOrRegion post) throws IOException {
+    public Post save(Post post) throws IOException {
 
         post = postRepository.save(post);
         if (post == null)
             return null;
         else
-            return postRepository.save(post);
+            return post;
     }
 
     public void deleteById(String str) throws IOException {
@@ -32,9 +31,9 @@ public class PostControllerImpl  implements PostController {
         postRepository.deleteById(Long.parseLong(str));
     }
 
-    public PostOrRegion getElementById(String str) throws IOException {
+    public Post getElementById(String str) throws IOException {
 
-        PostOrRegion post = postRepository.getById(Long.parseLong(str));
+        Post post = postRepository.getById(Long.parseLong(str));
         if (post == null)
             return null;
         else {
@@ -42,7 +41,7 @@ public class PostControllerImpl  implements PostController {
         }
     }
 
-    public PostOrRegion Update(PostOrRegion post) throws IOException {
+    public Post update(Post post) throws IOException {
 
         post = postRepository.update(post);
         if (post != null) {
@@ -52,9 +51,9 @@ public class PostControllerImpl  implements PostController {
 
     }
 
-    public List<PostOrRegion> getAll() throws IOException {
+    public List<Post> getAll() throws IOException {
 
-        List<PostOrRegion> postList = postRepository.getAll();
+        List<Post> postList = postRepository.getAll();
         if (postList==null)
             return null;
         else

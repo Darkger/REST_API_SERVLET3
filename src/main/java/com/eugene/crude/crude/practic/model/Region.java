@@ -1,13 +1,12 @@
 package com.eugene.crude.crude.practic.model;
 
-public class Region  implements  PostOrRegion {
+public class Region   {
     private String id;
     private String charRegName;
 
 
-
-
-
+    public Region() {
+    }
 
     public String getId() {
         return id;

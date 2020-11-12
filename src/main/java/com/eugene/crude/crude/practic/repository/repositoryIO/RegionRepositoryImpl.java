@@ -1,11 +1,12 @@
 package com.eugene.crude.crude.practic.repository.repositoryIO;
 
 
-import com.eugene.crude.crude.practic.model.PostOrRegion;
+
 import com.eugene.crude.crude.practic.model.Region;
 import com.eugene.crude.crude.practic.repository.Genericrepository;
-import com.eugene.crude.crude.practic.repository.IOUtils;
+import com.eugene.crude.crude.practic.utils.IOUtils;
 import com.eugene.crude.crude.practic.repository.RegionRepository;
+
 import com.google.gson.Gson;
 
 
@@ -26,13 +27,13 @@ public class RegionRepositoryImpl implements RegionRepository {
 
 
     @Override
-    public PostOrRegion getById(Long id) {
+    public Region getById(Long id) {
         try {
             List<String> listReg = Files.readAllLines(regionFilePath);
             if (!listReg.isEmpty()) {
                 for (String str : listReg) {
                     if (str.contains("\"id\":\"" + id + "\"")) {
-                        PostOrRegion region = gson.fromJson(str, Region.class);
+                        Region region = gson.fromJson(str, Region.class);
                         return region;
                     }
                 }
@@ -45,14 +46,14 @@ public class RegionRepositoryImpl implements RegionRepository {
     }
 
     @Override
-    public List<PostOrRegion> getAll() {
+    public List<Region> getAll() {
         try {
             List<String> listReg = Files.readAllLines(regionFilePath);
-            List<PostOrRegion> listRegionObj = new ArrayList<>();
+            List<Region> listRegionObj = new ArrayList<>();
 
             if (!listReg.isEmpty()) {
                 for (String str : listReg) {
-                    PostOrRegion region = gson.fromJson(str, Region.class);
+                    Region region = gson.fromJson(str, Region.class);
                     listRegionObj.add(region);
                 }
                 return listRegionObj;
@@ -65,25 +66,32 @@ public class RegionRepositoryImpl implements RegionRepository {
     }
 
     @Override
-    public PostOrRegion save(PostOrRegion post) {
+    public Region save(Region region) {
         Genericrepository genericrepository = new PostRepositoryImpl();
         try {
             if (!Files.exists(regionFilePath)) {
                 Files.createFile(regionFilePath);
             }
             List<String> listReg = Files.readAllLines(regionFilePath);
-            IOUtils ioUtils = new IOUtilsRegionImpl();
-            if (post.getId()==null)
-                post.setId("0");
-            int validId = ioUtils.getValidId(listReg, Integer.parseInt(post.getId()));
-            post.setId(String.valueOf(validId));
+            for( String str: listReg)
+            {
+                if(str.contains(region.getContent())){
+                return   gson.fromJson(str,Region.class);
+                }
+            }
+
+            if (region.getId()==null)
+                region.setId("0");
+
+            int validId = IOUtils.getValidId(listReg, Integer.parseInt(region.getId()),Region.class);
+            region.setId(String.valueOf(validId));
             try {
-                String strToWrite = gson.toJson(post);
+                String strToWrite = gson.toJson(region);
                 Files.writeString(regionFilePath, strToWrite + "\n", StandardOpenOption.APPEND);
             } catch (IOException e) {
                 System.out.println("ошибка записи в файл3");
             }
-            return post;
+            return region;
         } catch (IOException e) {
             System.out.println(e);
             return null;
@@ -91,7 +99,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     }
 
     @Override
-    public PostOrRegion update(PostOrRegion post) {
+    public Region update(Region post) {
         try {
             List<String> listReg = Files.readAllLines(regionFilePath);
 
@@ -100,7 +108,7 @@ public class RegionRepositoryImpl implements RegionRepository {
                 for (int i = 0; i < listReg.size(); i++) {
 
                     if (listReg.get(i).contains(fdf)) {
-                        PostOrRegion regNew = gson.fromJson(listReg.get(i), Region.class);
+                        Region regNew = gson.fromJson(listReg.get(i), Region.class);
                         regNew.setContent(post.getContent());
                         listReg.set(i, gson.toJson(regNew));
                         break;

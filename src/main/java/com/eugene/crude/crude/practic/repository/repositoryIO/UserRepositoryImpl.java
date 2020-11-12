@@ -3,13 +3,11 @@ package com.eugene.crude.crude.practic.repository.repositoryIO;
 
 
 
-import com.eugene.crude.crude.practic.model.PostOrRegion;
-import com.eugene.crude.crude.practic.model.Region;
 import com.eugene.crude.crude.practic.model.User;
-import com.eugene.crude.crude.practic.repository.IOUtils;
+import com.eugene.crude.crude.practic.utils.IOUtils;
 import com.eugene.crude.crude.practic.repository.UserRepository;
+
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,8 +19,7 @@ import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private Gson gson = new GsonBuilder().registerTypeAdapter(PostOrRegion.class, new InterfaceAdapter<PostOrRegion>())
-            .create();
+    private Gson gson = new Gson();
 
 
     private Path userFile = Paths.get("C:\\javaFiles\\user.json");
@@ -75,8 +72,7 @@ public class UserRepositoryImpl implements UserRepository {
                 Files.createFile(userFile);
             }
             List<String> listReg = Files.readAllLines(userFile);
-            IOUtils ioUtils = new IOUtilsUserImpl();
-            int validId = ioUtils.getValidId(listReg, Integer.parseInt(user.getId()));
+            int validId = IOUtils.getValidId(listReg, Integer.parseInt(user.getId()),User.class);
             user.setId(String.valueOf(validId));
             try {
 

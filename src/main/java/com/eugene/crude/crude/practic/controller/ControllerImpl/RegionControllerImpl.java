@@ -13,10 +13,10 @@ public class RegionControllerImpl implements RegionController {
     RegionRepository regionPostRepository = new RegionRepositoryImpl();
 
 
-    public PostOrRegion save(PostOrRegion post) throws IOException {
+    public Region save(Region region) throws IOException {
 
-        PostOrRegion region1= regionPostRepository.save(post);
-        if (post == null)
+       Region region1= regionPostRepository.save(region);
+        if (region == null)
             return null;
         else
             return region1;
@@ -27,29 +27,31 @@ public class RegionControllerImpl implements RegionController {
         regionPostRepository.deleteById(Long.parseLong(str));
     }
 
-    public PostOrRegion getElementById(String str) throws IOException {
+    public Region getElementById(String str) throws IOException {
 
-        PostOrRegion post = regionPostRepository.getById(Long.parseLong(str));
-        if (post == null)
+       Region region = regionPostRepository.getById(Long.parseLong(str));
+        if (region == null)
             return null;
         else {
-            return post;
+            return region;
         }
     }
 
-    public PostOrRegion Update(PostOrRegion post) throws IOException {
 
-        post = regionPostRepository.update(post);
-        if (post != null) {
-            return post;
+    @Override
+    public Region update(Region region) throws IOException {
+
+        region = regionPostRepository.update(region);
+        if (region != null) {
+            return region;
         } else return null;
 
 
     }
 
-    public List<PostOrRegion> getAll() throws IOException {
+    public List<Region> getAll() throws IOException {
 
-        List<PostOrRegion> postList = regionPostRepository.getAll();
+        List<Region> postList = regionPostRepository.getAll();
         if (postList==null)
             return null;
         else

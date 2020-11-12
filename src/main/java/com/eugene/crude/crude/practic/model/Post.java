@@ -2,13 +2,15 @@ package com.eugene.crude.crude.practic.model;
 
 import java.util.Date;
 
-public class Post  implements PostOrRegion {
+public class Post   {
     private String id;
     private String content;
     private Date create ;
     private Date update ;
 
+    public Post() {
 
+    }
 
 
     public String getId() {

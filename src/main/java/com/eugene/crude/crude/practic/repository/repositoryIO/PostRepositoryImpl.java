@@ -3,9 +3,10 @@ package com.eugene.crude.crude.practic.repository.repositoryIO;
 
 import com.eugene.crude.crude.practic.model.Post;
 
-import com.eugene.crude.crude.practic.model.PostOrRegion;
-import com.eugene.crude.crude.practic.repository.IOUtils;
+
+import com.eugene.crude.crude.practic.utils.IOUtils;
 import com.eugene.crude.crude.practic.repository.PostRepository;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -25,13 +26,13 @@ public class PostRepositoryImpl implements PostRepository {
 
 
     @Override
-    public  PostOrRegion getById(Long id) {
+    public  Post getById(Long id) {
         try {
             List<String> listReg = Files.readAllLines(postsFilePath);
             if (!listReg.isEmpty()) {
                 for (String str : listReg) {
                     if (str.contains("\"id\":\"" + id + "\"")) {
-                        PostOrRegion post = gson.fromJson(str, Post.class);
+                        Post post = gson.fromJson(str, Post.class);
                         return post;
                     }
                 }
@@ -44,14 +45,14 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<PostOrRegion> getAll() {
+    public List<Post> getAll() {
         try {
             List<String> listReg = Files.readAllLines(postsFilePath);
-            List<PostOrRegion> listRegionObj = new ArrayList<>();
+            List<Post> listRegionObj = new ArrayList<>();
 
             if (!listReg.isEmpty()) {
                 for (String str : listReg) {
-                    PostOrRegion post = gson.fromJson(str, Post.class);
+                    Post post = gson.fromJson(str, Post.class);
                     listRegionObj.add(post);
                 }
                 return listRegionObj;
@@ -64,14 +65,14 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public PostOrRegion save(PostOrRegion post) {
+    public Post save(Post post) {
         try {
             if (!Files.exists(postsFilePath)) {
                 Files.createFile(postsFilePath);
             }
             List<String> listReg = Files.readAllLines(postsFilePath);
-            IOUtils ioUtils = new IOUtilsPostImpl();
-            int validId = ioUtils.getValidId(listReg, Integer.parseInt(post.getId()));
+
+            int validId = IOUtils.getValidId(listReg, Integer.parseInt(post.getId()),Post.class);
             post.setId(String.valueOf(validId));
             try {
                 String strToWrite = gson.toJson(post);
@@ -87,7 +88,7 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public PostOrRegion update(PostOrRegion post) {
+    public Post update(Post post) {
         try {
             List<String> listReg = Files.readAllLines(postsFilePath);
 
@@ -96,7 +97,7 @@ public class PostRepositoryImpl implements PostRepository {
                 for (int i = 0; i < listReg.size(); i++) {
 
                     if (listReg.get(i).contains(fdf)) {
-                        PostOrRegion postNew = gson.fromJson(listReg.get(i), Post.class);
+                        Post postNew = gson.fromJson(listReg.get(i), Post.class);
                         postNew.setContent(post.getContent());
                         listReg.set(i, gson.toJson(postNew));
                         break;

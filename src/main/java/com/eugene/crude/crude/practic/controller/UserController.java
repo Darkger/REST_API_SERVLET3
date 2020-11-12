@@ -16,7 +16,7 @@ public interface UserController extends Controller<User> {
     User getElementById(String str) throws IOException;
 
     @Override
-    User Update(User post) throws IOException;
+    User update(User post) throws IOException;
 
     @Override
     List<User> getAll() throws IOException;

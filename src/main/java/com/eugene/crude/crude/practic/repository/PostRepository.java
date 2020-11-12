@@ -2,23 +2,23 @@ package com.eugene.crude.crude.practic.repository;
 
 
 import com.eugene.crude.crude.practic.model.Post;
-import com.eugene.crude.crude.practic.model.PostOrRegion;
+
 
 
 import java.util.List;
 
-public interface PostRepository extends Genericrepository<PostOrRegion, Long>  {
+public interface PostRepository extends Genericrepository<Post, Long>  {
     @Override
-    PostOrRegion getById(Long aLong);
+    Post getById(Long aLong);
 
     @Override
-    List<PostOrRegion> getAll();
+    List<Post> getAll();
 
     @Override
-    PostOrRegion save(PostOrRegion post);
+    Post save(Post post);
 
     @Override
-    PostOrRegion update(PostOrRegion post);
+    Post update(Post post);
 
     @Override
     void deleteById(Long aLong);
