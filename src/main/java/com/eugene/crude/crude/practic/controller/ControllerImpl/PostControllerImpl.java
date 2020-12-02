@@ -5,7 +5,7 @@ import com.eugene.crude.crude.practic.controller.PostController;
 import com.eugene.crude.crude.practic.model.Post;
 
 import com.eugene.crude.crude.practic.repository.PostRepository;
-import com.eugene.crude.crude.practic.repository.repositoryIO.PostRepositoryImpl;
+import com.eugene.crude.crude.practic.repository.bdRepositoty.PostRepositoryImpl;
 
 
 import java.io.IOException;
@@ -28,12 +28,12 @@ public class PostControllerImpl  implements PostController {
 
     public void deleteById(String str) throws IOException {
 
-        postRepository.deleteById(Long.parseLong(str));
+        postRepository.deleteById(Integer.parseInt(str));
     }
 
     public Post getElementById(String str) throws IOException {
 
-        Post post = postRepository.getById(Long.parseLong(str));
+        Post post = postRepository.getById(Integer.parseInt(str));
         if (post == null)
             return null;
         else {

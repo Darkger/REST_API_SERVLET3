@@ -6,10 +6,10 @@ import com.eugene.crude.crude.practic.model.Region;
 
 import java.util.List;
 
-public interface RegionRepository extends Genericrepository<Region, Long> {
+public interface RegionRepository extends Genericrepository<Region, Integer> {
 
     @Override
-    Region  getById(Long aLong);
+    Region  getById(Integer aLong);
 
     @Override
     List<Region> getAll();
@@ -21,5 +21,5 @@ public interface RegionRepository extends Genericrepository<Region, Long> {
     Region update(Region region);
 
     @Override
-    void deleteById(Long aLong);
+    void deleteById(Integer aLong);
 }

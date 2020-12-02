@@ -5,9 +5,9 @@ import com.eugene.crude.crude.practic.model.User;
 
 import java.util.List;
 
-public interface UserRepository extends Genericrepository<User, Long> {
+public interface UserRepository extends Genericrepository<User, Integer> {
     @Override
-    User getById(Long aLong);
+    User getById(Integer aLong);
 
     @Override
     List<User> getAll();
@@ -19,5 +19,5 @@ public interface UserRepository extends Genericrepository<User, Long> {
     User update(User user);
 
     @Override
-    void deleteById(Long aLong);
+    void deleteById(Integer aLong);
 }

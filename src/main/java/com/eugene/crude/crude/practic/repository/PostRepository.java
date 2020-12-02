@@ -7,9 +7,9 @@ import com.eugene.crude.crude.practic.model.Post;
 
 import java.util.List;
 
-public interface PostRepository extends Genericrepository<Post, Long>  {
+public interface PostRepository extends Genericrepository<Post, Integer>  {
     @Override
-    Post getById(Long aLong);
+    Post getById(Integer aLong);
 
     @Override
     List<Post> getAll();
@@ -21,7 +21,7 @@ public interface PostRepository extends Genericrepository<Post, Long>  {
     Post update(Post post);
 
     @Override
-    void deleteById(Long aLong);
+    void deleteById(Integer aLong);
 
 
 }

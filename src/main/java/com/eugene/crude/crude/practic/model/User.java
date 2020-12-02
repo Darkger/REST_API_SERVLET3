@@ -5,6 +5,15 @@ import java.util.List;
 public class User {
     String id;
     String firstName;
+
+    public User(String id, String firstName, String lasName, List<Integer> posts, int region) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lasName = lasName;
+        this.posts = posts;
+        this.region = region;
+    }
+
     String lasName;
     List<Integer> posts;
     int region;

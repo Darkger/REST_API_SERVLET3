@@ -27,7 +27,7 @@ public class RegionView implements  View {
     public void viewSave(Region region) throws IOException {
 
         region = regionController.save(region);
-        if (region != null)
+        if (region !=null )
             System.out.println("Регино " + "'" + region.getContent() + "'" + " сохранен с id=" + region.getId());
         else System.out.println("Ошбика:Регион не может быть сохранен!");
     }
