@@ -152,10 +152,11 @@ public class PostRepositoryImpl implements PostRepository {
         try {
 
             statement = connection.prepareStatement(sql1);
-            resultSet = statement.executeQuery(sql1);
-            resultSet.next();
-            id = resultSet.getInt("max") + 1;
-
+            if(statement.getMoreResults()) {
+                resultSet = statement.executeQuery(sql1);
+                resultSet.next();
+                id = resultSet.getInt("max") + 1;
+            } else {id=1;}
             statement = connection.prepareStatement(sql2);
             statement.setInt(1, id);
             statement.setString(2, post.getContent());
