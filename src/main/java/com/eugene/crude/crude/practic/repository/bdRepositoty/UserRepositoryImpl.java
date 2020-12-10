@@ -110,22 +110,22 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User save(User user) {
         ResultSet resultSet;
-        String sql2 = "INSERT INTO users (user_id,first_name,last_name,region_id) VALUES (?,?,?,?) ";
-        String sql1 = "SELECT max(user_id)   FROM users ";
+        String sql2 = "INSERT INTO users (first_name,last_name,region_id) VALUES (?,?,?) ";
+        String sql1 = "SELECT user_id  FROM users WHERE first_name=? and last_name=? and region_id=? ";
         try (Connection connection = bfConnection.getConnection()) {
-            Statement statement1 = connection.createStatement();
-            statement = connection.prepareStatement(sql1);
-            resultSet = statement1.executeQuery(sql1);
-            resultSet.next();
-            user.setId(resultSet.getInt("max") + 1);
+
             statement = connection.prepareStatement(sql2);
-            statement.setInt(1, user.getId());
-
-            statement.setString(2, user.getFirstName());
-            statement.setString(3, user.getLasName());
-            statement.setInt(4, user.getRegion().getId());
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLasName());
+            statement.setInt(3, user.getRegion().getId());
             statement.executeUpdate();
-
+            statement = connection.prepareStatement(sql1);
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLasName());
+            statement.setInt(3, user.getRegion().getId());
+            resultSet = statement.executeQuery();
+            resultSet.next();
+            user.setId(resultSet.getInt("user_id"));
             String sql4 = "INSERT INTO blog (post_id,user_id) VALUES (?,?)";
             statement = connection.prepareStatement(sql4);
             for (Post e : user.getPosts()) {
@@ -146,27 +146,26 @@ public class UserRepositoryImpl implements UserRepository {
         ResultSet resultSet;
         List<Integer> listBlogId = new ArrayList<>();
         String sql2 = "UPDATE   users   SET first_name=?,last_name=?,region_id=? WHERE user_id=? ";
-        String sql3 = "SELECT id from   blog where user_id=?";
-        String sql4 = "UPDATE    blog  SET post_id=? WHERE id=?";
+        String sql3 =  "SELECT  post_id FROM blog where user_id=?";
+        String sql4 = "UPDATE    blog  SET post_id=? WHERE user_id=? and post_id=?";
         try (Connection connection = bfConnection.getConnection()) {
             statement = connection.prepareStatement(sql2);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLasName());
             statement.setInt(3, user.getRegion().getId());
             statement.setInt(4, user.getId());
-            int B = statement.executeUpdate();
-            System.out.println(B);
             statement = connection.prepareStatement(sql3);
             statement.setInt(1, user.getId());
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                listBlogId.add(resultSet.getInt("id"));
+                listBlogId.add(resultSet.getInt("post_id"));
             }
             statement = connection.prepareStatement(sql4);
             int i = 0;
             for (Post e : user.getPosts()) {
                 statement.setInt(1, e.getId());
-                statement.setInt(2, listBlogId.get(i));
+                statement.setInt(2, user.getId());
+                statement.setInt(3, listBlogId.get(i));
                 statement.execute();
                 i++;
             }
