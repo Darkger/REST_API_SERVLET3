@@ -1,16 +1,16 @@
-package com.eugene.crude.crude.practic.repository.bdRepositoty;
+package com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl;
 
 import com.eugene.crude.crude.practic.model.Region;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;
 import com.eugene.crude.crude.practic.repository.RegionRepository;
-import com.eugene.crude.crude.practic.utils.BfConnection;
+import com.eugene.crude.crude.practic.utils.JDBSConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RegionRepositoryImpl implements RegionRepository {
 
-    BfConnection bfConnection = new BfConnection();
+    JDBSConnection bfConnection = new JDBSConnection();
     PreparedStatement statement;
     final String sqlRegion = "SELECT  *   FROM region ";
     @Override

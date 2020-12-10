@@ -1,4 +1,4 @@
-package com.eugene.crude.crude.practic.repository.bdRepositoty;
+package com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl;
 
 
 import com.eugene.crude.crude.practic.factory.FactoryImpl.UserFactoryImpl;
@@ -9,7 +9,7 @@ import com.eugene.crude.crude.practic.model.builder.builderImpl.PostBuilderImpl;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.UserBuilderImpl;
 import com.eugene.crude.crude.practic.repository.UserRepository;
-import com.eugene.crude.crude.practic.utils.BfConnection;
+import com.eugene.crude.crude.practic.utils.JDBSConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 
     UserFactory factory = new UserFactoryImpl();
-    BfConnection bfConnection = new BfConnection();
+    JDBSConnection bfConnection = new JDBSConnection();
 
     PreparedStatement statement;
 

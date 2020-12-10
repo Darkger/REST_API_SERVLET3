@@ -1,7 +1,7 @@
 package com.eugene.crude.crude.practic.utils;
 import  java.sql.*;
 
-public class BfConnection {
+public class JDBSConnection {
     static final String JDBC_DRIVER = "org.postgresql.Driver";
 
 public Connection getConnection() throws ClassNotFoundException, SQLException {

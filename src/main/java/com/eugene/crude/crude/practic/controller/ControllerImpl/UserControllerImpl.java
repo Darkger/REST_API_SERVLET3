@@ -4,8 +4,8 @@ package com.eugene.crude.crude.practic.controller.ControllerImpl;
 import com.eugene.crude.crude.practic.controller.UserController;
 import com.eugene.crude.crude.practic.model.User;
 import com.eugene.crude.crude.practic.repository.RegionRepository;
-import com.eugene.crude.crude.practic.repository.bdRepositoty.RegionRepositoryImpl;
-import com.eugene.crude.crude.practic.repository.bdRepositoty.UserRepositoryImpl;
+import com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl.RegionRepositoryImpl;
+import com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl.UserRepositoryImpl;
 
 import java.io.IOException;
 import java.util.List;

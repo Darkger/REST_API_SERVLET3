@@ -5,7 +5,7 @@ import com.eugene.crude.crude.practic.controller.PostController;
 import com.eugene.crude.crude.practic.model.Post;
 
 import com.eugene.crude.crude.practic.repository.PostRepository;
-import com.eugene.crude.crude.practic.repository.bdRepositoty.PostRepositoryImpl;
+import com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl.PostRepositoryImpl;
 
 
 import java.io.IOException;

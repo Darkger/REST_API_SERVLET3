@@ -1,4 +1,4 @@
-package com.eugene.crude.crude.practic.repository.bdRepositoty;
+package com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl;
 
 
 import com.eugene.crude.crude.practic.factory.FactoryImpl.PostFactoryImpl;
@@ -6,7 +6,7 @@ import com.eugene.crude.crude.practic.factory.PostFactory;
 import com.eugene.crude.crude.practic.model.Post;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.PostBuilderImpl;
 import com.eugene.crude.crude.practic.repository.PostRepository;
-import com.eugene.crude.crude.practic.utils.BfConnection;
+import com.eugene.crude.crude.practic.utils.JDBSConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class PostRepositoryImpl implements PostRepository {
     PostFactory factory = new PostFactoryImpl();
-    BfConnection bfConnection = new BfConnection();
+    JDBSConnection bfConnection = new JDBSConnection();
 
     PreparedStatement statement;
 
