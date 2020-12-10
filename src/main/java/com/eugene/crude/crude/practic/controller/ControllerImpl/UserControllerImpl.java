@@ -14,7 +14,7 @@ public class UserControllerImpl  implements UserController {
     UserRepositoryImpl userRepository = new UserRepositoryImpl();
 RegionRepository regionRepository = new RegionRepositoryImpl();
     public User save(User user) throws IOException {
-       // regionRepository.save(user.getRegion());
+
         user = userRepository.save(user);
         if (user == null)
             return null;

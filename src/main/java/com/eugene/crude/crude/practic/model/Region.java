@@ -1,20 +1,26 @@
 package com.eugene.crude.crude.practic.model;
 
+import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;
+
 public class Region   {
-    private String id;
+    private Integer id;
     private String charRegName;
 
+    public Region(RegionBuilderImpl regionBuilder) {
+        this.id = regionBuilder.getId();
+        this.charRegName = regionBuilder.getName();
+    }
 
     public Region() {
     }
-
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
 
     public String getContent() {
         return charRegName;

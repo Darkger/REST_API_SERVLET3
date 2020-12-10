@@ -7,8 +7,7 @@ import com.eugene.crude.crude.practic.controller.PostController;
 import com.eugene.crude.crude.practic.factory.PostFactory;
 import com.eugene.crude.crude.practic.factory.FactoryImpl.PostFactoryImpl;
 import com.eugene.crude.crude.practic.model.Post;
-
-
+import com.eugene.crude.crude.practic.model.builder.builderImpl.PostBuilderImpl;
 
 
 import java.io.BufferedReader;
@@ -29,7 +28,7 @@ public class PostView implements View {
 
         post = postController.save(post);
         if (post != null)
-            System.out.println("Пост" + "'" + post.getContent() + "'" + " сохранен с id=" + post.getId());
+            System.out.println("Пост" + "'" + post.getName() + "'" + " сохранен с id=" + post.getId());
         else System.out.println("Ошбика:Пост не может быть сохранен!");
     }
 
@@ -41,7 +40,7 @@ public class PostView implements View {
         else {
             System.out.println("Список постов:");
             for (Post region : regionList) {
-                System.out.println(region.getId() + "," + region.getContent());
+                System.out.println(region.getId() + "," + region.getName());
             }
         }
     }
@@ -50,7 +49,7 @@ public class PostView implements View {
 
         Post post1 = postController.update(post);
         if (post1 != null)
-            System.out.println("Идентификатор id=" + post.getId() + " теперь присвоен посту '" + post.getContent() + "'");
+            System.out.println("Идентификатор id=" + post.getId() + " теперь присвоен посту '" + post.getName() + "'");
         else System.out.println("Ошибка:Пост не может быть изменен");
     }
 
@@ -58,7 +57,7 @@ public class PostView implements View {
 
         Post post = postController.getElementById(str);
         if (post != null)
-            System.out.println("Идентификатор id=" + post.getId() + "принадлежит посту '" + post.getContent());
+            System.out.println("Идентификатор id=" + post.getId() + "принадлежит посту '" + post.getName());
         else System.out.println("Пост не найден!");
     }
 
@@ -106,10 +105,8 @@ public class PostView implements View {
                     break;
                 }
                 System.out.println("Введите Пост: ");
-                String regionName = reader.readLine();
-                Post post = postFactory.create();
-                post.setId(id);
-                post.setContent(regionName);
+                String postName = reader.readLine();
+                Post post = new PostBuilderImpl(Integer.parseInt(id),postName).build();
                 viewSave(post);
                 break;
             }
@@ -117,10 +114,8 @@ public class PostView implements View {
                 System.out.println("Введите id: ");
                 String id = reader.readLine();
                 System.out.println("Введите пост: ");
-                String regionName = reader.readLine();
-                Post post = postFactory.create();
-                post.setId(id);
-                post.setContent(regionName);
+                String postName= reader.readLine();
+                Post post = new PostBuilderImpl(Integer.parseInt(id),postName).build();
                 viewUpdate(post);
                 break;
             }

@@ -3,14 +3,14 @@ package com.eugene.crude.crude.practic.view;
 
 import com.eugene.crude.crude.practic.controller.ControllerImpl.PostControllerImpl;
 import com.eugene.crude.crude.practic.controller.ControllerImpl.RegionControllerImpl;
-
 import com.eugene.crude.crude.practic.controller.ControllerImpl.UserControllerImpl;
 import com.eugene.crude.crude.practic.factory.RegionFactory;
 import com.eugene.crude.crude.practic.factory.FactoryImpl.RegionFactoryImpl;
 import com.eugene.crude.crude.practic.factory.UserFactory;
 import com.eugene.crude.crude.practic.factory.FactoryImpl.UserFactoryImpl;
 import com.eugene.crude.crude.practic.model.*;
-
+import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;
+import com.eugene.crude.crude.practic.model.builder.builderImpl.UserBuilderImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -48,13 +48,13 @@ public class UserView  implements  View{
             if (userList != null){
             for (User user: userList) {
                 String str = "";
- List<Integer> gg = user.getPosts();
-                    for (Integer p : gg) {
+ List<Post> gg = user.getPosts();
+                    for (Post p : gg) {
 
-                            str += p + ",";
+                            str += p.getId() + ",";
                         }
                         str = str.substring(0, str.length() - 1);
-                        System.out.println(user.getId() + "," + user.getFirstName() + "," + user.getLasName() + "," + "[" + str + "]" + "," + user.getRegion());
+                        System.out.println(user.getId() + "," + user.getFirstName() + "," + user.getLasName() + "," + "[" + str + "]" + "," + user.getRegion().getId());
                     }
             }else System.out.println("Список пуст");
         }
@@ -112,21 +112,15 @@ public class UserView  implements  View{
                 String userPostId = reader.readLine();
                 System.out.println("Введите  регион пользователя: ");
                 String userRegion = reader.readLine();
-                List<Integer> postList = new ArrayList<>();
+                List<Post> postList = new ArrayList<>();
                 String postArray [] = userPostId.split(",");
                 for(String str1:postArray)
                 {
-                    postList.add(Integer.parseInt(postController.getElementById(str1).getId()));
+                    postList.add(postController.getElementById(str1));
                 }
-                Region region = regionFactory.create();
-                region.setContent(userRegion);
+                Region region = new RegionBuilderImpl().setName(userRegion).build();
                 region = regionController.save(region);
-                User user =userFactory.create();
-                user.setId(id);
-                user.setFirstName(userFirstName);
-                user.setLasName(userLastName);
-                user.setPosts(postList);
-                user.setRegion(Integer.parseInt(region.getId()));
+                User user = new UserBuilderImpl(Integer.parseInt(id),userFirstName,userLastName,postList,region).build();
                 viewSave(user);
                 break;
             }
@@ -141,22 +135,15 @@ public class UserView  implements  View{
                 String userPostId = reader.readLine();
                 System.out.println("Введите  регион пользователя: ");
                 String userRegion = reader.readLine();
-                List<Integer> postList = new ArrayList<>();
+                List<Post> postList = new ArrayList<>();
                 String postArray [] = userPostId.split(",");
                 for(String str1:postArray)
                 {
-                    postList.add(Integer.parseInt(postController.getElementById(str1).getId()));
+                    postList.add(postController.getElementById(str1));
                 }
-                Region region = regionFactory.create();
-                region.setContent(userRegion);
+                Region region = new RegionBuilderImpl().setName(userRegion).build();
                 region = regionController.save(region);
-                User user =userFactory.create();
-                user.setId(id);
-                user.setFirstName(userFirstName);
-                user.setLasName(userLastName);
-                user.setPosts(postList);
-                user.setRegion(Integer.parseInt(region.getId()));
-
+                User user = new UserBuilderImpl(Integer.parseInt(id),userFirstName,userLastName,postList,region).build();
                 viewUpdate(user);
                 break;
             }

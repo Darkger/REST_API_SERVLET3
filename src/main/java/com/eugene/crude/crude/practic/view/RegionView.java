@@ -7,7 +7,7 @@ import com.eugene.crude.crude.practic.factory.RegionFactory;
 import com.eugene.crude.crude.practic.factory.FactoryImpl.RegionFactoryImpl;
 
 import com.eugene.crude.crude.practic.model.Region;
-
+import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;
 
 
 import java.io.BufferedReader;
@@ -91,9 +91,8 @@ public class RegionView implements  View {
                 System.out.println("Введите Регион: ");
                 String regionName = reader.readLine();
 
-                Region region = regionFactory.create();
-                region.setId(id);
-                region.setContent(regionName);
+                Region region = new RegionBuilderImpl(Integer.parseInt(id),regionName).build();
+
                 viewSave(region);
                 break;
             }
@@ -102,9 +101,7 @@ public class RegionView implements  View {
                 String id = reader.readLine();
                 System.out.println("Введите Регион: ");
                 String regionName = reader.readLine();
-                Region region =  regionFactory.create();
-                region.setId(id);
-                region.setContent(regionName);
+                Region region = new RegionBuilderImpl(Integer.parseInt(id),regionName).build();
                 viewUpdate(region);
                 break;
             }

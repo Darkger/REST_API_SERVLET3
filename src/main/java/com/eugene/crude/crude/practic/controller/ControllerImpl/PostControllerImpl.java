@@ -14,9 +14,6 @@ import java.util.List;
 public class PostControllerImpl  implements PostController {
     PostRepository postRepository = new PostRepositoryImpl();
 
-
-
-
     public Post save(Post post) throws IOException {
 
         post = postRepository.save(post);

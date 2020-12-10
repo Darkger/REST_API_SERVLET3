@@ -1,4 +1,4 @@
-package com.eugene.crude.crude.practic.service;
+package com.eugene.crude.crude.practic.utils;
 import  java.sql.*;
 
 public class BfConnection {

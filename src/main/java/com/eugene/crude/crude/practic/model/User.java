@@ -1,29 +1,32 @@
 package com.eugene.crude.crude.practic.model;
 
+import com.eugene.crude.crude.practic.model.builder.builderImpl.UserBuilderImpl;
+
 import java.util.List;
 
 public class User {
-    String id;
+    Integer id;
     String firstName;
+    String lasName;
+    List<Post> posts;
+    Region region;
 
-    public User(String id, String firstName, String lasName, List<Integer> posts, int region) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lasName = lasName;
-        this.posts = posts;
-        this.region = region;
+    public User(UserBuilderImpl userBuilder) {
+        this.id = userBuilder.getId();
+        this.firstName = userBuilder.getFirstName();
+        this.lasName = userBuilder.getLasName();
+        this.posts = userBuilder.getPosts();
+        this.region = userBuilder.getRegion();
     }
 
-    String lasName;
-    List<Integer> posts;
-    int region;
 
 
-    public String getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -43,30 +46,24 @@ public class User {
         this.lasName = lasName;
     }
 
-    public List<Integer> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<Integer> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 
-    public  Integer getRegion() {
+    public  Region getRegion() {
         return region;
     }
 
-    public void setRegion(Integer region) {
+    public void setRegion(Region region) {
         this.region = region;
     }
 
     public User() {
     }
 
-    public User(String id, String firstName, String lastName, List<Integer> posts, Integer region) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lasName= lastName;
-        this.posts = posts;
-        this.region = region;
-    }
+
 }

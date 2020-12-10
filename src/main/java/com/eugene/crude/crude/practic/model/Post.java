@@ -1,31 +1,35 @@
 package com.eugene.crude.crude.practic.model;
 
-import java.util.Date;
+import com.eugene.crude.crude.practic.model.builder.builderImpl.PostBuilderImpl;
 
 public class Post   {
-    private String id;
-    private String content;
-    private Date create ;
-    private Date update ;
+    private Integer id;
+    private String name;
 
-    public Post() {
+
+    public Post(PostBuilderImpl postBuilder) {
+        id=postBuilder.getId();
+        name =postBuilder.getContent();
 
     }
 
+    public Post() {
+    }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
     }
+
 }
