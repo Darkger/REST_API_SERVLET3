@@ -1,16 +1,24 @@
 package com.eugene.crude.crude.practic.controller.ControllerImpl;
 
 
-import com.eugene.crude.crude.practic.controller.RegionController;
+
 import com.eugene.crude.crude.practic.model.*;
 import com.eugene.crude.crude.practic.repository.RegionRepository;
-import com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl.RegionRepositoryImpl;
+import com.eugene.crude.crude.practic.repository.jdbc.RegionRepositoryImpl;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.List;
 
-public class RegionControllerImpl implements RegionController {
-    RegionRepository regionPostRepository = new RegionRepositoryImpl();
+public class RegionControllerImpl  {
+    Connection connection;
+    RegionRepository regionPostRepository;
+    public RegionControllerImpl(Connection connection) {
+        this.connection = connection;
+        this.regionPostRepository = new RegionRepositoryImpl(connection);
+    }
+
+
 
 
     public Region save(Region region) throws IOException {
@@ -36,7 +44,7 @@ public class RegionControllerImpl implements RegionController {
     }
 
 
-    @Override
+
     public Region update(Region region) throws IOException {
 
         region = regionPostRepository.update(region);

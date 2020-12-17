@@ -14,19 +14,28 @@ import com.eugene.crude.crude.practic.model.builder.builderImpl.UserBuilderImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserView  implements  View{
-    UserFactory userFactory = new UserFactoryImpl();
-    RegionFactory regionFactory = new RegionFactoryImpl();
-    RegionView regionView= new RegionView();
-    UserControllerImpl userController = new UserControllerImpl();
-    RegionControllerImpl regionController = new RegionControllerImpl();
-    PostControllerImpl postController = new PostControllerImpl();
+public class UserView implements View {
+
+    UserControllerImpl userController;
+    RegionControllerImpl regionController;
+    PostControllerImpl postController;
+    Connection connection;
+
+    public UserView(Connection connection) throws SQLException, IOException, ClassNotFoundException {
+        this.connection = connection;
+        this.userController = new UserControllerImpl(connection);
+        this.postController = new PostControllerImpl(connection);
+        this.regionController = new RegionControllerImpl(connection);
+    }
+
     public void viewDeleteById(String str) throws IOException {
 
-         userController.deleteById(str);
+        userController.deleteById(str);
         System.out.println("Пользователь с id=" + str + " удален из файла");
     }
 
@@ -34,7 +43,7 @@ public class UserView  implements  View{
 
         user = userController.save(user);
         if (user != null)
-            System.out.println("Пользователь " + "'" + user.getFirstName()+" "+ user.getLasName() + " '" + " сохранен с id=" + user.getId());
+            System.out.println("Пользователь " + "'" + user.getFirstName() + " " + user.getLasName() + " '" + " сохранен с id=" + user.getId());
         else System.out.println("Ошбика:Пользователь не может быть сохранен!");
     }
 
@@ -45,18 +54,18 @@ public class UserView  implements  View{
             System.out.println("Файл пуст");
         else {
             System.out.println("Список регионов:");
-            if (userList != null){
-            for (User user: userList) {
-                String str = "";
- List<Post> gg = user.getPosts();
+            if (userList != null) {
+                for (User user : userList) {
+                    String str = "";
+                    List<Post> gg = user.getPosts();
                     for (Post p : gg) {
 
-                            str += p.getId() + ",";
-                        }
-                        str = str.substring(0, str.length() - 1);
-                        System.out.println(user.getId() + "," + user.getFirstName() + "," + user.getLasName() + "," + "[" + str + "]" + "," + user.getRegion().getId());
+                        str += p.getId() + ",";
                     }
-            }else System.out.println("Список пуст");
+                    str = str.substring(0, str.length() - 1);
+                    System.out.println(user.getId() + "," + user.getFirstName() + "," + user.getLasName() + "," + "[" + str + "]" + "," + user.getRegion().getId());
+                }
+            } else System.out.println("Список пуст");
         }
     }
 
@@ -64,7 +73,7 @@ public class UserView  implements  View{
 
         User user1 = userController.update(user);
         if (user1 != null)
-            System.out.println("Идентификатор id=" + user.getId() + " теперь присвоен пользователю '" + user.getFirstName()+" "+user.getLasName() + "'");
+            System.out.println("Идентификатор id=" + user.getId() + " теперь присвоен пользователю '" + user.getFirstName() + " " + user.getLasName() + "'");
         else System.out.println("Ошибка:Пользователь не может быть изменен");
     }
 
@@ -72,7 +81,7 @@ public class UserView  implements  View{
 
         User user = userController.getElementById(str);
         if (user != null)
-            System.out.println("Идентификатор id=" + user.getId() + "принадлежит пользователю'" + user.getFirstName()+" "+user.getLasName() + "'");
+            System.out.println("Идентификатор id=" + user.getId() + "принадлежит пользователю'" + user.getFirstName() + " " + user.getLasName() + "'");
         else System.out.println("Регион не найден!");
     }
 
@@ -113,14 +122,13 @@ public class UserView  implements  View{
                 System.out.println("Введите  регион пользователя: ");
                 String userRegion = reader.readLine();
                 List<Post> postList = new ArrayList<>();
-                String postArray [] = userPostId.split(",");
-                for(String str1:postArray)
-                {
+                String postArray[] = userPostId.split(",");
+                for (String str1 : postArray) {
                     postList.add(postController.getElementById(str1));
                 }
                 Region region = new RegionBuilderImpl().setName(userRegion).build();
                 region = regionController.save(region);
-                User user = new UserBuilderImpl(Integer.parseInt(id),userFirstName,userLastName,postList,region).build();
+                User user = new UserBuilderImpl(Integer.parseInt(id), userFirstName, userLastName, postList, region).build();
                 viewSave(user);
                 break;
             }
@@ -136,14 +144,13 @@ public class UserView  implements  View{
                 System.out.println("Введите  регион пользователя: ");
                 String userRegion = reader.readLine();
                 List<Post> postList = new ArrayList<>();
-                String postArray [] = userPostId.split(",");
-                for(String str1:postArray)
-                {
+                String postArray[] = userPostId.split(",");
+                for (String str1 : postArray) {
                     postList.add(postController.getElementById(str1));
                 }
                 Region region = new RegionBuilderImpl().setName(userRegion).build();
                 region = regionController.save(region);
-                User user = new UserBuilderImpl(Integer.parseInt(id),userFirstName,userLastName,postList,region).build();
+                User user = new UserBuilderImpl(Integer.parseInt(id), userFirstName, userLastName, postList, region).build();
                 viewUpdate(user);
                 break;
             }
@@ -153,10 +160,10 @@ public class UserView  implements  View{
                 viewDeleteById(id);
                 break;
             }
-            case "POST":{
+            case "POST": {
                 return "POST";
             }
-            case "REG":{
+            case "REG": {
                 return "REG";
             }
         }

@@ -1,18 +1,25 @@
 package com.eugene.crude.crude.practic.controller.ControllerImpl;
 
 
-import com.eugene.crude.crude.practic.controller.UserController;
+
 import com.eugene.crude.crude.practic.model.User;
-import com.eugene.crude.crude.practic.repository.RegionRepository;
-import com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl.RegionRepositoryImpl;
-import com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl.UserRepositoryImpl;
+
+import com.eugene.crude.crude.practic.repository.jdbc.UserRepositoryImpl;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.List;
 
-public class UserControllerImpl  implements UserController {
-    UserRepositoryImpl userRepository = new UserRepositoryImpl();
-RegionRepository regionRepository = new RegionRepositoryImpl();
+public class UserControllerImpl  {
+    UserRepositoryImpl userRepository;
+    Connection connection;
+
+    public UserControllerImpl(Connection connection) {
+        this.connection = connection;
+        this.userRepository= new UserRepositoryImpl(connection);
+
+    }
+
     public User save(User user) throws IOException {
 
         user = userRepository.save(user);
@@ -30,7 +37,7 @@ RegionRepository regionRepository = new RegionRepositoryImpl();
 
     public User getElementById(String str) throws IOException {
 
-       User user = userRepository.getById(Integer.parseInt(str));
+        User user = userRepository.getById(Integer.parseInt(str));
         if (user == null)
             return null;
         else {
@@ -51,7 +58,7 @@ RegionRepository regionRepository = new RegionRepositoryImpl();
     public List<User> getAll() throws IOException {
 
         List<User> userList = userRepository.getAll();
-        if (userList==null)
+        if (userList == null)
             return null;
         else
             return userList;

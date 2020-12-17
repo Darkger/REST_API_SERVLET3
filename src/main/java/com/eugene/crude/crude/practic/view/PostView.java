@@ -1,23 +1,22 @@
 package com.eugene.crude.crude.practic.view;
-
-
 import com.eugene.crude.crude.practic.controller.ControllerImpl.PostControllerImpl;
-
-import com.eugene.crude.crude.practic.controller.PostController;
-import com.eugene.crude.crude.practic.factory.PostFactory;
-import com.eugene.crude.crude.practic.factory.FactoryImpl.PostFactoryImpl;
 import com.eugene.crude.crude.practic.model.Post;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.PostBuilderImpl;
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
 import java.util.List;
 
 public class PostView implements View {
-    PostFactory postFactory = new PostFactoryImpl();
-    PostController postController =  new PostControllerImpl();
+
+    PostControllerImpl postController ;
+    Connection connection;
+    public PostView(Connection connection){
+        this.connection=connection;
+        this.postController =  new PostControllerImpl(connection);
+    }
+
     public void viewDeleteById(String str) throws IOException {
 
         postController.deleteById(str);

@@ -1,35 +1,47 @@
-package com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl;
+package com.eugene.crude.crude.practic.repository.jdbc;
 
 
-import com.eugene.crude.crude.practic.factory.FactoryImpl.PostFactoryImpl;
-import com.eugene.crude.crude.practic.factory.PostFactory;
 import com.eugene.crude.crude.practic.model.Post;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.PostBuilderImpl;
 import com.eugene.crude.crude.practic.repository.PostRepository;
 import com.eugene.crude.crude.practic.utils.JDBSConnection;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PostRepositoryImpl implements PostRepository {
-    PostFactory factory = new PostFactoryImpl();
-    JDBSConnection bfConnection = new JDBSConnection();
 
+    private final String sqlSelectAllPost = "SELECT * FROM post ";
+    private final String sqlAllpostById = "SELECT * FROM post WHERE post_id=? ";
+    private final String sqlInsertName = "INSERT INTO post (name) VALUES (?) ";
+    private final String sqlSelectIdByName = "SELECT post_id FROM post WHERE name=?  ";
+    private final String sqlUpdateNameById = "UPDATE post SET name=? WHERE post_id=? ";
+    private final String sqlDeleteBlogbyId = "DELETE FROM blog   WHERE post_id=? ";
+    private final String sqlDeletePostById = "DELETE FROM post   WHERE post_id=? ";
     PreparedStatement statement;
+    JDBSConnection bfConnection = JDBSConnection.getInstance();
+    Connection connection ;
 
+    public PostRepositoryImpl() throws SQLException, IOException, ClassNotFoundException {
+
+        Connection connection ;
+
+    }
+
+    public PostRepositoryImpl(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public Post getById(Integer aLong) {
         System.out.println(aLong);
         ResultSet resultSet;
-
         int id = 0;
         String name = "";
-        String sql = "SELECT * FROM post WHERE post_id=? ";
-
         try (Connection connection = bfConnection.getConnection()) {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sqlAllpostById);
             statement.setInt(1, aLong);
             statement.execute();
             resultSet = statement.executeQuery();
@@ -39,7 +51,7 @@ public class PostRepositoryImpl implements PostRepository {
 
             }
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
 
@@ -52,10 +64,10 @@ public class PostRepositoryImpl implements PostRepository {
 
         List<Post> listPost = new ArrayList<>();
         ResultSet resultSet;
-        String sql = "SELECT * FROM post ";
+
         try (Connection connection = bfConnection.getConnection()) {
             try {
-                statement = connection.prepareStatement(sql);
+                statement = connection.prepareStatement(sqlSelectAllPost);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -66,7 +78,7 @@ public class PostRepositoryImpl implements PostRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
         return listPost;
@@ -75,19 +87,18 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Post save(Post post) {
- ResultSet resultSet;
-        String sql2 = "INSERT INTO post (name) VALUES (?) ";
-        String sql3 = "SELECT post_id FROM post WHERE name=?  ";
+        ResultSet resultSet;
+
         try (Connection connection = bfConnection.getConnection()) {
-            statement = connection.prepareStatement(sql2);
+            statement = connection.prepareStatement(sqlInsertName);
             statement.setString(1, post.getName());
             statement.executeUpdate();
-            statement = connection.prepareStatement(sql3);
-            statement.setString(1,post.getName());
-            resultSet=statement.executeQuery();
+            statement = connection.prepareStatement(sqlSelectIdByName);
+            statement.setString(1, post.getName());
+            resultSet = statement.executeQuery();
             resultSet.next();
             post.setId(resultSet.getInt("post_id"));
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -97,9 +108,9 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Post update(Post post) {
-        String sql = "UPDATE post SET name=? WHERE post_id=? ";
+
         try (Connection connection = bfConnection.getConnection()) {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sqlUpdateNameById);
             statement.setInt(2, post.getId());
             statement.setString(1, post.getName());
             if (statement.executeUpdate() == 0) {
@@ -109,24 +120,27 @@ public class PostRepositoryImpl implements PostRepository {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return post;
     }
 
     @Override
     public void deleteById(Integer aLong) {
-        String sql2 = "DELETE FROM blog   WHERE post_id=? ";
-        String sql = "DELETE FROM post   WHERE post_id=? ";
+
         try (Connection connection = bfConnection.getConnection()) {
-            statement = connection.prepareStatement(sql2);
+            statement = connection.prepareStatement(sqlDeleteBlogbyId);
             statement.setInt(1, aLong);
             statement.execute();
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sqlDeletePostById);
             statement.setInt(1, aLong);
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -2,19 +2,10 @@ package com.eugene.crude.crude.practic;
 
 import com.eugene.crude.crude.practic.view.ViewHelper;
 
-import java.io.IOException;
-import java.sql.SQLException;
 
 public class Main  {
-    public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
-       // Path file = Paths.get("C:\\javaFiles\\posts.json");
-
-
-
-
-
+    public static void main(String[] args)  {
      ViewHelper viewHelper = new ViewHelper();
         viewHelper.mainHelper();
-
     }
 }

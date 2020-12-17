@@ -10,7 +10,7 @@ public interface Controller  <T>{
 
     public void deleteById(String str) throws IOException ;
 
-    public T getElementById(String str) throws IOException;
+    public T getElementById(T post) throws IOException;
 
     public T update(T post) throws IOException ;
 

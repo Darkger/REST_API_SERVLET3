@@ -13,11 +13,18 @@ import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImp
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
 import java.util.List;
 
 public class RegionView implements  View {
-    RegionControllerImpl regionController = new RegionControllerImpl();
-    RegionFactory regionFactory= new RegionFactoryImpl();
+    RegionControllerImpl regionController;
+Connection connection;
+
+    public RegionView(Connection connection) {
+        this.connection = connection;
+        this.regionController = new RegionControllerImpl(connection);
+    }
+
     public void viewDeleteById(String str) throws IOException {
 
         regionController.deleteById(str);

@@ -1,18 +1,24 @@
 package com.eugene.crude.crude.practic.controller.ControllerImpl;
 
 
-import com.eugene.crude.crude.practic.controller.PostController;
 import com.eugene.crude.crude.practic.model.Post;
 
 import com.eugene.crude.crude.practic.repository.PostRepository;
-import com.eugene.crude.crude.practic.repository.JDBCRepositotyImpl.PostRepositoryImpl;
+import com.eugene.crude.crude.practic.repository.jdbc.PostRepositoryImpl;
 
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.List;
 
-public class PostControllerImpl  implements PostController {
-    PostRepository postRepository = new PostRepositoryImpl();
+public class PostControllerImpl  {
+    PostRepository postRepository;
+    Connection connection;
+
+    public PostControllerImpl(Connection connection) {
+        this.connection = connection;
+        this.postRepository = new PostRepositoryImpl(connection);
+    }
 
     public Post save(Post post) throws IOException {
 
@@ -51,7 +57,7 @@ public class PostControllerImpl  implements PostController {
     public List<Post> getAll() throws IOException {
 
         List<Post> postList = postRepository.getAll();
-        if (postList==null)
+        if (postList == null)
             return null;
         else
             return postList;
