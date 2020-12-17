@@ -117,7 +117,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User save(User user) {
         ResultSet resultSet;
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try {
 
             statement = connection.prepareStatement(sqlInsertFNameLNameRegion);
             statement.setString(1, user.getFirstName());
@@ -139,10 +139,6 @@ public class UserRepositoryImpl implements UserRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return user;
     }
@@ -151,7 +147,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User update(User user) {
         ResultSet resultSet;
         List<Integer> listBlogId = new ArrayList<>();
-        try (Connection connection = bfConnection.getConnection()) {
+        try   {
             statement = connection.prepareStatement(sqlUpdateUsersById);
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLasName());
@@ -174,10 +170,6 @@ public class UserRepositoryImpl implements UserRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return user;
     }
@@ -185,7 +177,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void deleteById(Integer aLong) {
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try {
             statement = connection.prepareStatement(sqlDeleteBlog);
             statement.setInt(1, aLong);
             statement.execute();
@@ -193,10 +185,6 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setInt(1, aLong);
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }

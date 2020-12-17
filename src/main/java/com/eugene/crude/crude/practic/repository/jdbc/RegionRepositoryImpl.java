@@ -3,7 +3,7 @@ package com.eugene.crude.crude.practic.repository.jdbc;
 import com.eugene.crude.crude.practic.model.Region;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;
 import com.eugene.crude.crude.practic.repository.RegionRepository;
-import com.eugene.crude.crude.practic.utils.JDBSConnection;
+
 
 import java.io.IOException;
 import java.sql.*;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RegionRepositoryImpl implements RegionRepository {
 
-    JDBSConnection bfConnection = JDBSConnection.getInstance();
+
     PreparedStatement statement;
     Connection connection;
     private final String sqlSelectAllRegion = "SELECT  *   FROM region ";
@@ -32,7 +32,7 @@ public class RegionRepositoryImpl implements RegionRepository {
         int id = 0;
         String name = "";
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             statement = connection.prepareStatement(sqlSelectAllById);
             statement.setInt(1, aLong);
             statement.execute();
@@ -43,10 +43,6 @@ public class RegionRepositoryImpl implements RegionRepository {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
         return new RegionBuilderImpl(id, name).build();
@@ -59,7 +55,7 @@ public class RegionRepositoryImpl implements RegionRepository {
         int id = 0;
         String name = "";
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             statement = connection.prepareStatement(sqlSelectAllRegion);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -70,11 +66,8 @@ public class RegionRepositoryImpl implements RegionRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
         return listPost;
     }
 
@@ -82,7 +75,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     public Region save(Region region) {
         ResultSet resultSet;
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             statement = connection.prepareStatement(sqlSelectAllRegion);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -101,10 +94,6 @@ public class RegionRepositoryImpl implements RegionRepository {
             region.setId(resultSet.getInt("region_id"));
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return region;
     }
@@ -113,7 +102,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     public Region update(Region region) {
 
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             statement = connection.prepareStatement(sqlUpdateRegion);
             statement.setInt(2, region.getId());
             statement.setString(1, region.getContent());
@@ -122,10 +111,6 @@ public class RegionRepositoryImpl implements RegionRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return region;
     }
@@ -133,15 +118,11 @@ public class RegionRepositoryImpl implements RegionRepository {
     @Override
     public void deleteById(Integer aLong) {
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             statement = connection.prepareStatement(sqlDeleteRegion);
             statement.setInt(1, aLong);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }

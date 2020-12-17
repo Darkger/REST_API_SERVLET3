@@ -4,7 +4,7 @@ package com.eugene.crude.crude.practic.repository.jdbc;
 import com.eugene.crude.crude.practic.model.Post;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.PostBuilderImpl;
 import com.eugene.crude.crude.practic.repository.PostRepository;
-import com.eugene.crude.crude.practic.utils.JDBSConnection;
+
 
 import java.io.IOException;
 import java.sql.*;
@@ -21,14 +21,7 @@ public class PostRepositoryImpl implements PostRepository {
     private final String sqlDeleteBlogbyId = "DELETE FROM blog   WHERE post_id=? ";
     private final String sqlDeletePostById = "DELETE FROM post   WHERE post_id=? ";
     PreparedStatement statement;
-    JDBSConnection bfConnection = JDBSConnection.getInstance();
     Connection connection ;
-
-    public PostRepositoryImpl() throws SQLException, IOException, ClassNotFoundException {
-
-        Connection connection ;
-
-    }
 
     public PostRepositoryImpl(Connection connection) {
         this.connection = connection;
@@ -40,7 +33,7 @@ public class PostRepositoryImpl implements PostRepository {
         ResultSet resultSet;
         int id = 0;
         String name = "";
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             statement = connection.prepareStatement(sqlAllpostById);
             statement.setInt(1, aLong);
             statement.execute();
@@ -51,7 +44,7 @@ public class PostRepositoryImpl implements PostRepository {
 
             }
 
-        } catch (SQLException | ClassNotFoundException | IOException e) {
+        } catch (SQLException  e) {
             e.printStackTrace();
         }
 
@@ -65,7 +58,7 @@ public class PostRepositoryImpl implements PostRepository {
         List<Post> listPost = new ArrayList<>();
         ResultSet resultSet;
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             try {
                 statement = connection.prepareStatement(sqlSelectAllPost);
             } catch (SQLException e) {
@@ -78,8 +71,6 @@ public class PostRepositoryImpl implements PostRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
         }
         return listPost;
 
@@ -89,7 +80,7 @@ public class PostRepositoryImpl implements PostRepository {
     public Post save(Post post) {
         ResultSet resultSet;
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             statement = connection.prepareStatement(sqlInsertName);
             statement.setString(1, post.getName());
             statement.executeUpdate();
@@ -98,9 +89,7 @@ public class PostRepositoryImpl implements PostRepository {
             resultSet = statement.executeQuery();
             resultSet.next();
             post.setId(resultSet.getInt("post_id"));
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return post;
@@ -109,7 +98,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Post update(Post post) {
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             statement = connection.prepareStatement(sqlUpdateNameById);
             statement.setInt(2, post.getId());
             statement.setString(1, post.getName());
@@ -118,10 +107,6 @@ public class PostRepositoryImpl implements PostRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return post;
     }
@@ -129,7 +114,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public void deleteById(Integer aLong) {
 
-        try (Connection connection = bfConnection.getConnection()) {
+        try  {
             statement = connection.prepareStatement(sqlDeleteBlogbyId);
             statement.setInt(1, aLong);
             statement.execute();
@@ -137,10 +122,6 @@ public class PostRepositoryImpl implements PostRepository {
             statement.setInt(1, aLong);
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
