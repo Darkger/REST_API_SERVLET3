@@ -52,16 +52,13 @@ public class RegionRepositoryImpl implements RegionRepository {
     public List<Region> getAll() {
         List<Region> listPost = new ArrayList<>();
         ResultSet resultSet;
-        int id = 0;
-        String name = "";
+
 
         try  {
             statement = connection.prepareStatement(sqlSelectAllRegion);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                id = resultSet.getInt("region_id");
-                name = resultSet.getString("name");
-                Region region = new RegionBuilderImpl(id, name).build();
+                Region region = new RegionBuilderImpl(resultSet.getInt("region_id"), resultSet.getString("name")).build();
                 listPost.add(region);
             }
         } catch (SQLException e) {
