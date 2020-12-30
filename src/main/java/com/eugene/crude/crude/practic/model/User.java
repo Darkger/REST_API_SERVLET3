@@ -2,14 +2,31 @@ package com.eugene.crude.crude.practic.model;
 
 import com.eugene.crude.crude.practic.model.builder.builderImpl.UserBuilderImpl;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "users")
 public class User {
-    Integer id;
-    String firstName;
-    String lasName;
-    List<Post> posts;
-    Region region;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Integer id;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lasName;
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinTable(
+            name = "blog",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    private List<Post> posts;
+
+    @OneToOne(cascade=CascadeType.MERGE )
+    @JoinColumn(name = "region_id")
+    private Region region;
 
     public User(UserBuilderImpl userBuilder) {
         this.id = userBuilder.getId();
@@ -18,8 +35,6 @@ public class User {
         this.posts = userBuilder.getPosts();
         this.region = userBuilder.getRegion();
     }
-
-
 
 
     public Integer getId() {
@@ -54,7 +69,7 @@ public class User {
         this.posts = posts;
     }
 
-    public  Region getRegion() {
+    public Region getRegion() {
         return region;
     }
 

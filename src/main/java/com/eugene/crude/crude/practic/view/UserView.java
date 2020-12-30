@@ -7,10 +7,12 @@ import com.eugene.crude.crude.practic.model.*;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.UserBuilderImpl;
 import java.io.BufferedReader;
+
+
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.SQLException;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,22 +21,22 @@ public class UserView implements View {
     UserControllerImpl userController;
     RegionControllerImpl regionController;
     PostControllerImpl postController;
-    Connection connection;
 
-    public UserView(Connection connection) throws SQLException, IOException, ClassNotFoundException {
-        this.connection = connection;
-        this.userController = new UserControllerImpl(connection);
-        this.postController = new PostControllerImpl(connection);
-        this.regionController = new RegionControllerImpl(connection);
+
+    public UserView()  {
+
+        this.userController = new UserControllerImpl();
+        this.postController = new PostControllerImpl();
+        this.regionController = new RegionControllerImpl();
     }
 
-    public void viewDeleteById(String str) throws IOException {
+    public void viewDeleteById(String str)  {
 
         userController.deleteById(str);
         System.out.println("Пользователь с id=" + str + " удален из файла");
     }
 
-    public void viewSave(User user) throws IOException {
+    public void viewSave(User user)  {
 
         user = userController.save(user);
         if (user != null)
@@ -42,7 +44,7 @@ public class UserView implements View {
         else System.out.println("Ошбика:Пользователь не может быть сохранен!");
     }
 
-    public void viewGetAll() throws IOException {
+    public void viewGetAll()  {
 
         List<User> userList = userController.getAll();
         if (userList.isEmpty())
@@ -64,7 +66,7 @@ public class UserView implements View {
         }
     }
 
-    public void viewUpdate(User user) throws IOException {
+    public void viewUpdate(User user)  {
 
         User user1 = userController.update(user);
         if (user1 != null)
@@ -72,7 +74,7 @@ public class UserView implements View {
         else System.out.println("Ошибка:Пользователь не может быть изменен");
     }
 
-    public void viewGetUserById(String str) throws IOException {
+    public void viewGetUserById(String str) {
 
         User user = userController.getElementById(str);
         if (user != null)
@@ -80,7 +82,7 @@ public class UserView implements View {
         else System.out.println("Регион не найден!");
     }
 
-    public String routing() throws IOException {
+    public String routing()  {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("РАБОТА С ФАЙЛОМ  'user.txt':\n\n");
@@ -92,7 +94,12 @@ public class UserView implements View {
         System.out.println("5. Введите команду -'DELETE' чтобы удалить  пользователя");
         System.out.println("6. Введите команду -'POST' для перехода к файлу 'post.json':");
         System.out.println("7. Введите команду -'REG' для перехода к файлу 'region.json':");
-        String str = reader.readLine();
+        String str = null;
+        try {
+            str = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         switch (str) {
             case "LIST": {
                 viewGetAll();
@@ -100,22 +107,52 @@ public class UserView implements View {
             }
             case "BYID": {
                 System.out.println("Введите id: ");
-                String id = reader.readLine();
+                String id = null;
+                try {
+                    id = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 viewGetUserById(id);
                 break;
 
             }
             case "SAVE": {
                 System.out.println("Введите id: ");
-                String id = reader.readLine();
+                String id = null;
+                try {
+                    id = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Введите имя пользователя: ");
-                String userFirstName = reader.readLine();
+                String userFirstName = null;
+                try {
+                    userFirstName = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Введите фамилию пользователя: ");
-                String userLastName = reader.readLine();
+                String userLastName = null;
+                try {
+                    userLastName = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Введите id постов пользователя через запятую: ");
-                String userPostId = reader.readLine();
+                String userPostId = null;
+                try {
+                    userPostId = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Введите  регион пользователя: ");
-                String userRegion = reader.readLine();
+                String userRegion = null;
+                try {
+                    userRegion = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 List<Post> postList = new ArrayList<>();
                 String postArray[] = userPostId.split(",");
                 for (String str1 : postArray) {
@@ -129,15 +166,40 @@ public class UserView implements View {
             }
             case "UPDATE": {
                 System.out.println("Введите id: ");
-                String id = reader.readLine();
+                String id = null;
+                try {
+                    id = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Введите имя пользователя: ");
-                String userFirstName = reader.readLine();
+                String userFirstName = null;
+                try {
+                    userFirstName = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Введите фамилию пользователя: ");
-                String userLastName = reader.readLine();
+                String userLastName = null;
+                try {
+                    userLastName = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Введите id постов пользователя через запятую: ");
-                String userPostId = reader.readLine();
+                String userPostId = null;
+                try {
+                    userPostId = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Введите  регион пользователя: ");
-                String userRegion = reader.readLine();
+                String userRegion = null;
+                try {
+                    userRegion = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 List<Post> postList = new ArrayList<>();
                 String postArray[] = userPostId.split(",");
                 for (String str1 : postArray) {
@@ -151,7 +213,12 @@ public class UserView implements View {
             }
             case "DELETE": {
                 System.out.println("Введите id1: ");
-                String id = reader.readLine();
+                String id = null;
+                try {
+                    id = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 viewDeleteById(id);
                 break;
             }
@@ -163,7 +230,11 @@ public class UserView implements View {
             }
         }
         System.out.println("Продолжить работу? Y/N :");
-        str = reader.readLine();
+        try {
+            str = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return str;
     }
 }

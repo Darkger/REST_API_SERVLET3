@@ -1,6 +1,6 @@
 package com.eugene.crude.crude.practic.view;
 
-import java.io.IOException;
+
 
 public class ViewSetter implements  DoAction {
     View view;
@@ -10,7 +10,7 @@ public class ViewSetter implements  DoAction {
 
 
     @Override
-    public String Do() throws IOException {
+    public String Do() {
         return view.routing();
     }
 }

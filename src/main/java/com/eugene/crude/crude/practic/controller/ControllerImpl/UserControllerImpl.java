@@ -1,26 +1,21 @@
 package com.eugene.crude.crude.practic.controller.ControllerImpl;
 
-
-
 import com.eugene.crude.crude.practic.model.User;
+import com.eugene.crude.crude.practic.repository.hibernate.UserRepositoryImpl;
 
-import com.eugene.crude.crude.practic.repository.jdbc.UserRepositoryImpl;
-
-import java.io.IOException;
-import java.sql.Connection;
 import java.util.List;
 
-public class UserControllerImpl  {
+public class UserControllerImpl {
     UserRepositoryImpl userRepository;
-    Connection connection;
 
-    public UserControllerImpl(Connection connection) {
-        this.connection = connection;
-        this.userRepository= new UserRepositoryImpl(connection);
+
+    public UserControllerImpl() {
+
+        this.userRepository = new UserRepositoryImpl();
 
     }
 
-    public User save(User user) throws IOException {
+    public User save(User user) {
 
         user = userRepository.save(user);
         if (user == null)
@@ -29,13 +24,13 @@ public class UserControllerImpl  {
             return user;
     }
 
-    public void deleteById(String str) throws IOException {
+    public void deleteById(String str) {
 
         userRepository.deleteById(Integer.parseInt(str));
     }
 
 
-    public User getElementById(String str) throws IOException {
+    public User getElementById(String str) {
 
         User user = userRepository.getById(Integer.parseInt(str));
         if (user == null)
@@ -45,7 +40,7 @@ public class UserControllerImpl  {
         }
     }
 
-    public User update(User user) throws IOException {
+    public User update(User user) {
 
         user = userRepository.update(user);
         if (user != null) {
@@ -55,7 +50,7 @@ public class UserControllerImpl  {
 
     }
 
-    public List<User> getAll() throws IOException {
+    public List<User> getAll() {
 
         List<User> userList = userRepository.getAll();
         if (userList == null)

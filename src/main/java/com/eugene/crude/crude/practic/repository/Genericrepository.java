@@ -1,15 +1,16 @@
 package com.eugene.crude.crude.practic.repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Genericrepository<T, ID> {
-    public T getById(ID id);
+   T getById(ID id) throws SQLException;
 
-    public List<T> getAll();
+     List<T> getAll() throws SQLException;
 
-    public T save(T t);
+    T save(T t);
 
-    public T update(T t);
+   T update(T t);
 
-    public void deleteById(ID id);
+    void deleteById(ID id);
 }
