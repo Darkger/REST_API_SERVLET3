@@ -5,11 +5,11 @@ import com.eugene.crude.crude.practic.repository.hibernate.UserRepositoryImpl;
 
 import java.util.List;
 
-public class UserControllerImpl {
+public class UserController {
     UserRepositoryImpl userRepository;
 
 
-    public UserControllerImpl() {
+    public UserController() {
 
         this.userRepository = new UserRepositoryImpl();
 

@@ -7,11 +7,11 @@ import com.eugene.crude.crude.practic.repository.hibernate.PostRepositoryImpl;
 import java.sql.SQLException;
 import java.util.List;
 
-public class PostControllerImpl {
+public class PostController {
     PostRepository postRepository;
 
 
-    public PostControllerImpl() {
+    public PostController() {
 
         this.postRepository = new PostRepositoryImpl();
     }

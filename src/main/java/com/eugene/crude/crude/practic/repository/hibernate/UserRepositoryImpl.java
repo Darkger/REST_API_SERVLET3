@@ -7,11 +7,12 @@ import com.eugene.crude.crude.practic.utils.HibernateConnection;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    List<User> listUser;
+
 
     public UserRepositoryImpl() {
 
@@ -19,13 +20,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getById(Integer aLong)  {
+        List<User> listUser;
         try (Session session = HibernateConnection.getSessionFactory().openSession()) {
-            Transaction transaction = null;
-            transaction = session.beginTransaction();
+             session.beginTransaction();
             Query query = session.createSQLQuery("SELECT * FROM users LEFT JOIN blog on users.user_id=blog.user_id WHERE users.user_id=:param1").addEntity(User.class);
             query.setParameter("param1", aLong);
             listUser = query.list();
-            transaction.commit();
+
         }
         return new UserBuilderImpl(listUser.get(0).getId(), listUser.get(0).getFirstName(), listUser.get(0).getLasName(), listUser.get(0).getPosts(), listUser.get(0).getRegion()).build();
 
@@ -34,12 +35,12 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAll() {
+        List<User> listUser;
         try (Session session = HibernateConnection.getSessionFactory().openSession()) {
-            Transaction transaction = null;
-            transaction = session.beginTransaction();
+           session.beginTransaction();
             Query query = session.createSQLQuery("SELECT * FROM users LEFT JOIN blog on users.user_id=blog.user_id  ").addEntity(User.class);
             listUser = query.list();
-            transaction.commit();
+
         }
 
         return listUser;
@@ -49,6 +50,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
+
         try(Session session = HibernateConnection.getSessionFactory().openSession()){
             Transaction transaction = null;
             transaction = session.beginTransaction();

@@ -7,12 +7,14 @@ import com.eugene.crude.crude.practic.repository.PostRepository;
 import com.eugene.crude.crude.practic.utils.HibernateConnection;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostRepositoryImpl implements PostRepository {
 
 
-    List<Post> listPost;
+
 
     public PostRepositoryImpl( ) {
 
@@ -20,16 +22,10 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Post getById(Integer aLong)  {
+        List<Post> listPost = new ArrayList<>();
         try(Session session = HibernateConnection.getSessionFactory().openSession()){
-            Transaction transaction = null;
-            transaction = session.beginTransaction();
-
-
-
+            session.beginTransaction();
           listPost.set(0,session.get(Post.class,aLong));
-
-
-            transaction.commit();
         }
 
 
@@ -38,13 +34,12 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<Post> getAll() {
-
+        List<Post> listPost;
         try(Session session = HibernateConnection.getSessionFactory().openSession()){
-            Transaction transaction = null;
-            transaction = session.beginTransaction();
+          session.beginTransaction();
             listPost= session.createSQLQuery("SELECT * FROM post").addEntity(Post.class).list();
 
-            transaction.commit();
+
 
         }
         return listPost;

@@ -1,5 +1,5 @@
 package com.eugene.crude.crude.practic.view;
-import com.eugene.crude.crude.practic.controller.ControllerImpl.PostControllerImpl;
+import com.eugene.crude.crude.practic.controller.ControllerImpl.PostController;
 import com.eugene.crude.crude.practic.model.Post;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.PostBuilderImpl;
 import java.io.BufferedReader;
@@ -9,10 +9,10 @@ import java.util.List;
 
 public class PostView implements View {
 
-    PostControllerImpl postController ;
+    PostController postController ;
 
     public PostView(){
-        this.postController =  new PostControllerImpl();
+        this.postController =  new PostController();
     }
 
     public void viewDeleteById(String str) {

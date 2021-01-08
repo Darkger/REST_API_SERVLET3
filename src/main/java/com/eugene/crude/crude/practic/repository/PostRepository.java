@@ -5,7 +5,7 @@ import com.eugene.crude.crude.practic.model.Post;
 
 
 
-public interface PostRepository extends Genericrepository<Post, Integer>  {
+public interface PostRepository extends GenericRepository<Post, Integer> {
 
 
 

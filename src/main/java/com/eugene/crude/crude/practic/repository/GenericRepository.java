@@ -3,7 +3,7 @@ package com.eugene.crude.crude.practic.repository;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface Genericrepository<T, ID> {
+public interface GenericRepository<T, ID> {
    T getById(ID id) throws SQLException;
 
      List<T> getAll() throws SQLException;

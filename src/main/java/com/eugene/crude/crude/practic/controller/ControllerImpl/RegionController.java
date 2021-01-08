@@ -1,38 +1,43 @@
 package com.eugene.crude.crude.practic.controller.ControllerImpl;
 
 import com.eugene.crude.crude.practic.model.*;
+import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;
 import com.eugene.crude.crude.practic.repository.RegionRepository;
 import com.eugene.crude.crude.practic.repository.hibernate.RegionRepositoryImpl;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class RegionControllerImpl {
+public class RegionController {
 
-    RegionRepository regionPostRepository;
+    RegionRepository regionRepository;
 
-    public RegionControllerImpl() {
-        this.regionPostRepository = new RegionRepositoryImpl();
+    public RegionController() {
+        this.regionRepository = new RegionRepositoryImpl();
     }
 
 
     public Region save(Region region) {
+      RegionBuilderImpl region1 = new RegionBuilderImpl();
+      region1.setId(region.getId()).setName(region.getCharRegName());
+      region = regionRepository.findByName(region);
+        if (region==null){
+            return regionRepository.save(region1.build());
+        }
+         return region;
 
-        Region region1 = regionPostRepository.save(region);
-
-        return region1;
     }
 
     public void deleteById(String str) {
 
-        regionPostRepository.deleteById(Integer.parseInt(str));
+        regionRepository.deleteById(Integer.parseInt(str));
     }
 
     public Region getElementById(String str) {
 
         Region region = null;
         try {
-            region = regionPostRepository.getById(Integer.parseInt(str));
+            region = regionRepository.getById(Integer.parseInt(str));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,7 +51,7 @@ public class RegionControllerImpl {
 
     public Region update(Region region) {
 
-        region = regionPostRepository.update(region);
+        region = regionRepository.update(region);
         if (region != null) {
             return region;
         } else return null;
@@ -58,7 +63,7 @@ public class RegionControllerImpl {
 
         List<Region> postList = null;
         try {
-            postList = regionPostRepository.getAll();
+            postList = regionRepository.getAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
