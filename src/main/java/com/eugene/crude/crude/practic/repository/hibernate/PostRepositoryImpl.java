@@ -37,7 +37,7 @@ public class PostRepositoryImpl implements PostRepository {
         List<Post> listPost;
         try(Session session = HibernateConnection.getSessionFactory().openSession()){
           session.beginTransaction();
-            listPost= session.createSQLQuery("SELECT * FROM post").addEntity(Post.class).list();
+            listPost= session.createQuery("FROM Post").list();
 
 
 

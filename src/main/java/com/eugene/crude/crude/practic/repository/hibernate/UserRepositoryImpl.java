@@ -23,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
         List<User> listUser;
         try (Session session = HibernateConnection.getSessionFactory().openSession()) {
              session.beginTransaction();
-            Query query = session.createSQLQuery("SELECT * FROM users LEFT JOIN blog on users.user_id=blog.user_id WHERE users.user_id=:param1").addEntity(User.class);
+            Query query = session.createQuery(" FROM User  WHERE id=:param1");
             query.setParameter("param1", aLong);
             listUser = query.list();
 
@@ -38,7 +38,7 @@ public class UserRepositoryImpl implements UserRepository {
         List<User> listUser;
         try (Session session = HibernateConnection.getSessionFactory().openSession()) {
            session.beginTransaction();
-            Query query = session.createSQLQuery("SELECT * FROM users LEFT JOIN blog on users.user_id=blog.user_id  ").addEntity(User.class);
+            Query query = session.createQuery("FROM User ");
             listUser = query.list();
 
         }

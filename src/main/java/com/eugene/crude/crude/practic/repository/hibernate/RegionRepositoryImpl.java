@@ -8,7 +8,6 @@ import com.eugene.crude.crude.practic.utils.HibernateConnection;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
 import javax.persistence.NoResultException;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class RegionRepositoryImpl implements RegionRepository {
         try (Session session = HibernateConnection.getSessionFactory().openSession()) {
             session.beginTransaction();
 
-            query = session.createSQLQuery("SELECT * FROM region WHERE region_id=:param1").addEntity(Region.class);
+            query = session.createQuery(" FROM Region WHERE id=:param1");
             query.setParameter("param1", aLong);
             listReg = query.list();
 
@@ -41,7 +40,7 @@ public class RegionRepositoryImpl implements RegionRepository {
         List<Region> listReg;
         try (Session session = HibernateConnection.getSessionFactory().openSession()) {
             session.beginTransaction();
-            listReg = session.createSQLQuery("SELECT * FROM region").addEntity(Region.class).list();
+            listReg = session.createQuery(" FROM Region").list();
 
         }
 
@@ -53,7 +52,7 @@ public class RegionRepositoryImpl implements RegionRepository {
             Transaction transaction = null;
             transaction = session.beginTransaction();
 
-            Query query = session.createSQLQuery("SELECT  * FROM region where name =:name").addEntity(Region.class);
+            Query query = session.createQuery("FROM Region where charRegName =:name");
             query.setParameter("name", region.getCharRegName());
 
 
