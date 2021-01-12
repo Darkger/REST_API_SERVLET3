@@ -1,4 +1,4 @@
-package com.eugene.crude.crude.practic.controller.ControllerImpl;
+package com.eugene.crude.crude.practic.controller;
 
 import com.eugene.crude.crude.practic.model.*;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;

@@ -39,7 +39,9 @@ public class UserRepositoryImpl implements UserRepository {
         try (Session session = HibernateConnection.getSessionFactory().openSession()) {
            session.beginTransaction();
             Query query = session.createQuery("FROM User ");
+
             listUser = query.list();
+
 
         }
 

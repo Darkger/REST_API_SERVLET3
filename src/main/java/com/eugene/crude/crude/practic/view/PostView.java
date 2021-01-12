@@ -1,5 +1,5 @@
 package com.eugene.crude.crude.practic.view;
-import com.eugene.crude.crude.practic.controller.ControllerImpl.PostController;
+import com.eugene.crude.crude.practic.controller.PostController;
 import com.eugene.crude.crude.practic.model.Post;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.PostBuilderImpl;
 import java.io.BufferedReader;

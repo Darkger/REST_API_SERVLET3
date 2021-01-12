@@ -2,7 +2,7 @@ package com.eugene.crude.crude.practic.view;
 
 
 
-import com.eugene.crude.crude.practic.controller.ControllerImpl.RegionController;
+import com.eugene.crude.crude.practic.controller.RegionController;
 
 import com.eugene.crude.crude.practic.model.Region;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;

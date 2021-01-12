@@ -16,7 +16,7 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lasName;
-    @OneToMany(cascade = CascadeType. ALL, fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType. ALL, fetch=FetchType.LAZY)
     @JoinTable(
             name = "blog",
             joinColumns = @JoinColumn(name = "user_id"),

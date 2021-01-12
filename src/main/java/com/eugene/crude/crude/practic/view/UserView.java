@@ -1,8 +1,8 @@
 package com.eugene.crude.crude.practic.view;
 
-import com.eugene.crude.crude.practic.controller.ControllerImpl.PostController;
-import com.eugene.crude.crude.practic.controller.ControllerImpl.RegionController;
-import com.eugene.crude.crude.practic.controller.ControllerImpl.UserController;
+import com.eugene.crude.crude.practic.controller.PostController;
+import com.eugene.crude.crude.practic.controller.RegionController;
+import com.eugene.crude.crude.practic.controller.UserController;
 import com.eugene.crude.crude.practic.model.*;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.RegionBuilderImpl;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.UserBuilderImpl;

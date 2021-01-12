@@ -1,4 +1,4 @@
-package com.eugene.crude.crude.practic.factory.FactoryImpl;
+package com.eugene.crude.crude.practic.factory.factoryImpl;
 
 
 import com.eugene.crude.crude.practic.factory.RegionFactory;
