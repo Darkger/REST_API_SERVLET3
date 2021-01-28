@@ -13,7 +13,7 @@
 
 
         <property name="hibernate.connection.url">
-            jdbc:postgresql://127.0.0.1/new_db
+            jdbc:postgresql://127.0.0.1/servlet2_db
         </property>
         <property name="hibernate.connection.username">
             webtester
@@ -30,8 +30,9 @@
             true
         </property>
         <mapping class="com.eugene.crude.crude.practic.model.Region"></mapping>
-        <mapping class="com.eugene.crude.crude.practic.model.Post"></mapping>
+        <mapping class="com.eugene.crude.crude.practic.model.File"></mapping>
         <mapping class="com.eugene.crude.crude.practic.model.User"></mapping>
-
+        <mapping class="com.eugene.crude.crude.practic.model.Account"></mapping>
+        <mapping class="com.eugene.crude.crude.practic.model.Event"></mapping>
     </session-factory>
 </hibernate-configuration>

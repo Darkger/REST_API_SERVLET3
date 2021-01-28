@@ -1,22 +1,22 @@
 package com.eugene.crude.crude.practic.controller;
 
-import com.eugene.crude.crude.practic.model.Post;
-import com.eugene.crude.crude.practic.repository.PostRepository;
-import com.eugene.crude.crude.practic.repository.hibernate.PostRepositoryImpl;
+import com.eugene.crude.crude.practic.model.File;
+import com.eugene.crude.crude.practic.repository.FileRepository;
+import com.eugene.crude.crude.practic.repository.hibernate.FileRepositoryImpl;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class PostController {
-    PostRepository postRepository;
+public class FileController {
+    FileRepository postRepository;
 
 
-    public PostController() {
+    public FileController() {
 
-        this.postRepository = new PostRepositoryImpl();
+        this.postRepository = new FileRepositoryImpl();
     }
 
-    public Post save(Post post) {
+    public File save(File post) {
 
         post = postRepository.save(post);
         if (post == null)
@@ -30,9 +30,9 @@ public class PostController {
         postRepository.deleteById(Integer.parseInt(str));
     }
 
-    public Post getElementById(String str) {
+    public File getElementById(String str) {
 
-        Post post = null;
+        File post = null;
         try {
             post = postRepository.getById(Integer.parseInt(str));
         } catch (SQLException e) {
@@ -45,7 +45,7 @@ public class PostController {
         }
     }
 
-    public Post update(Post post) {
+    public File update(File post) {
 
         post = postRepository.update(post);
         if (post != null) {
@@ -55,9 +55,9 @@ public class PostController {
 
     }
 
-    public List<Post> getAll() {
+    public List<File> getAll() {
 
-        List<Post> postList = null;
+        List<File> postList = null;
         try {
             postList = postRepository.getAll();
         } catch (SQLException e) {

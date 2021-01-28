@@ -4,6 +4,7 @@ import com.eugene.crude.crude.practic.model.User;
 import com.eugene.crude.crude.practic.model.builder.builderImpl.UserBuilderImpl;
 import com.eugene.crude.crude.practic.repository.UserRepository;
 import com.eugene.crude.crude.practic.utils.HibernateConnection;
+import liquibase.pro.packaged.S;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -28,8 +29,9 @@ public class UserRepositoryImpl implements UserRepository {
             listUser = query.list();
 
         }
-        return new UserBuilderImpl(listUser.get(0).getId(), listUser.get(0).getFirstName(), listUser.get(0).getLasName(), listUser.get(0).getPosts(), listUser.get(0).getRegion()).build();
-
+        User user= new  UserBuilderImpl(aLong, listUser.get(0).getFirstName(), listUser.get(0).getLasName(), listUser.get(0).getPosts(), listUser.get(0).getRegion()).build();
+        System.out.println();
+  return user;
 
     }
 

@@ -1,6 +1,6 @@
 package com.eugene.crude.crude.practic.model.builder.builderImpl;
 
-import com.eugene.crude.crude.practic.model.Post;
+import com.eugene.crude.crude.practic.model.File;
 import com.eugene.crude.crude.practic.model.Region;
 import com.eugene.crude.crude.practic.model.User;
 import com.eugene.crude.crude.practic.model.builder.Builder;
@@ -8,20 +8,20 @@ import com.eugene.crude.crude.practic.model.builder.Builder;
 import java.util.List;
 
 public class UserBuilderImpl implements Builder {
-    Integer id;
+    int id;
     String firstName;
     String lasName;
-    List<Post> posts;
+    List<File> posts;
     Region region;
 
     public UserBuilderImpl() {
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public UserBuilderImpl setId(Integer id) {
+    public UserBuilderImpl setId(int id) {
         this.id = id;
         return this;
     }
@@ -44,11 +44,11 @@ public class UserBuilderImpl implements Builder {
         return this;
     }
 
-    public List<Post> getPosts() {
+    public List<File> getPosts() {
         return posts;
     }
 
-    public UserBuilderImpl setPosts(List<Post> posts) {
+    public UserBuilderImpl setPosts(List<File> posts) {
         this.posts = posts;
         return this;
     }
@@ -62,7 +62,7 @@ public class UserBuilderImpl implements Builder {
         return this;
     }
 
-    public UserBuilderImpl(Integer id, String firstName, String lasName, List<Post> posts, Region region) {
+    public UserBuilderImpl(int id, String firstName, String lasName, List<File> posts, Region region) {
         this.id = id;
         this.firstName = firstName;
         this.lasName = lasName;

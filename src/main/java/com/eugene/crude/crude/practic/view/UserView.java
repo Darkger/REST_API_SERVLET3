@@ -1,6 +1,6 @@
 package com.eugene.crude.crude.practic.view;
 
-import com.eugene.crude.crude.practic.controller.PostController;
+import com.eugene.crude.crude.practic.controller.FileController;
 import com.eugene.crude.crude.practic.controller.RegionController;
 import com.eugene.crude.crude.practic.controller.UserController;
 import com.eugene.crude.crude.practic.model.*;
@@ -16,17 +16,17 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserView implements View {
+public class UserView  {
 
     UserController userController;
     RegionController regionController;
-    PostController postController;
+    FileController postController;
 
 
     public UserView()  {
 
         this.userController = new UserController();
-        this.postController = new PostController();
+        this.postController = new FileController();
         this.regionController = new RegionController();
     }
 
@@ -54,8 +54,8 @@ public class UserView implements View {
             if (userList != null) {
                 for (User user : userList) {
                     String str = "";
-                    List<Post> gg = user.getPosts();
-                    for (Post p : gg) {
+                    List<File> gg = user.getPosts();
+                    for (File p : gg) {
 
                         str += p.getId() + ",";
                     }
@@ -92,7 +92,7 @@ public class UserView implements View {
         System.out.println("3. Введите команду -'SAVE'   чтобы сохранить пользователя");
         System.out.println("4. Введите команду -'UPDATE' чтобы изменить пользователя");
         System.out.println("5. Введите команду -'DELETE' чтобы удалить  пользователя");
-        System.out.println("6. Введите команду -'POST' для перехода к файлу 'post.json':");
+        System.out.println("6. Введите команду -'File' для перехода к file");
         System.out.println("7. Введите команду -'REG' для перехода к файлу 'region.json':");
         String str = null;
         try {
@@ -153,7 +153,7 @@ public class UserView implements View {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                List<Post> postList = new ArrayList<>();
+                List<File> postList = new ArrayList<>();
                 String postArray[] = userPostId.split(",");
                 for (String str1 : postArray) {
                     postList.add(postController.getElementById(str1));
@@ -200,7 +200,7 @@ public class UserView implements View {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                List<Post> postList = new ArrayList<>();
+                List<File> postList = new ArrayList<>();
                 String postArray[] = userPostId.split(",");
                 for (String str1 : postArray) {
                     postList.add(postController.getElementById(str1));
@@ -222,8 +222,8 @@ public class UserView implements View {
                 viewDeleteById(id);
                 break;
             }
-            case "POST": {
-                return "POST";
+            case "FILE": {
+                return "FILE";
             }
             case "REG": {
                 return "REG";

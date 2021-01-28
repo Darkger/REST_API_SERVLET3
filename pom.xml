@@ -6,10 +6,17 @@
 
     <groupId>com.eugene.javacore</groupId>
     <artifactId>CrudeJson</artifactId>
-    <version>${my.version}</version>
+    <version>$  {my.version}</version>
+    <packaging>war</packaging>
+    <name>servlet_ap Maven Webapp</name>
+    <!-- FIXME change it to the project's website -->
+    <url>http://www.example.com</url>
     <properties>
         <my.version>1.0-SNAPSHOT</my.version>
         <my.version1>4.2.0</my.version1>
+        <javax.servlet.api.version>4.0.1</javax.servlet.api.version>
+        <tomcat.plugin.version>2.2</tomcat.plugin.version>
+        <tomcat.version>7.0.107</tomcat.version>
     </properties>
     <build>
         <plugins>
@@ -30,7 +37,10 @@
                 </executions>
 
             </plugin>
-
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -42,7 +52,24 @@
         </plugins>
     </build>
     <dependencies>
-
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>${tomcat.version}</version>
+            <!--version>8.5.23</version-->
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>

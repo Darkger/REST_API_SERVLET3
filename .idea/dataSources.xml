@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://127.0.0.1/new_db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="servler2_db" uuid="5dc92624-e689-4d1d-811a-19d606b45c5f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1/servlet2_db</jdbc-url>
+    </data-source>
   </component>
 </project>
