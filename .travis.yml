@@ -1,1 +1,14 @@
 language: java
+jdk: jdk-14
+
+cache:
+  directories:
+    - $HOME/.m2
+
+
+notifications:
+  email:
+    recipients:
+      - borninger@yandex.ru
+    on_success: always
+    on_failure: always
