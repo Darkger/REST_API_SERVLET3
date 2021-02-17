@@ -1,5 +1,6 @@
 language: java
-jdk: jdk-14
+jdk: java-14-openjdk-amd64
+
 
 cache:
   directories:
