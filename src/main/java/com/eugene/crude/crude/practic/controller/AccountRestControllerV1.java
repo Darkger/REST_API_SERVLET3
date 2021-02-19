@@ -1,6 +1,4 @@
 package com.eugene.crude.crude.practic.controller;
-
-
 import com.eugene.crude.crude.practic.model.Account;
 import com.eugene.crude.crude.practic.model.AccountStatus;
 import com.eugene.crude.crude.practic.model.User;
@@ -8,7 +6,6 @@ import com.eugene.crude.crude.practic.repository.hibernate.AccountRepositoryImpl
 import com.eugene.crude.crude.practic.repository.hibernate.FileRepositoryImpl;
 import com.eugene.crude.crude.practic.repository.hibernate.RegionRepositoryImpl;
 import com.eugene.crude.crude.practic.repository.hibernate.UserRepositoryImpl;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
