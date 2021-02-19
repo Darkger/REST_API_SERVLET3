@@ -2,7 +2,7 @@ language: java
 deploy:
   provider: heroku
   api_key:
-    secure: "d6f37711-ecb6-4e38-ab42-c38de48edd24"
+    secure: "b58ccdbf-bc2a-4980-9528-09027001bda6"
   app: rest-servlet
 notifications:
   email:
