@@ -2,11 +2,11 @@ language: java
 deploy:
   provider: heroku
   api_key:
-    secure: c30c4cf8-0881-4ecb-9d15-ef7711f7a9ef
+    secure: dAxwrCnp6arRVeN1+zrgRV/eiukoDy3ShZyYqw+xH0gFvHKYRhtVaqfmprYkBIJ+g1DDO+CGM5qvkyyMmaxLMyAwW+dstpakHT4NbpzceUOyH+V46yT/cnMYOd+RdLNWhiUwNzPuIGf9GvWuL+bgO5mN+EekC2saKreBG1ixJi+0lfNmMWhGa2+/R2XB9NyMJxzhzpMVE+q+bI5+/X4unrKIhVNxROXijSzQtbv3TUukUAOLkejJXQH+fc9Xbw6ljYnzvAi2KC9Ku/KlDS6Tbi1yg20USQ4vFD3SxAbHOwSMkKCb5RraV1A+THIdsuygf+Zkh+ex85R/OCdxu5eMHf49V7ANQpnmPdoPFODrbAL0r5T6hCDATLdP6BJD9h6wgtk1KpCefLypejBy+BwZ05DSeipA40vged3NgSjt94cgUM9zLo73/Tn8eVel2jHvZ+LFpRSxr3DHkvf+4eRDK8foLWkqtcs0RsPefzt39j/TokNynr9U/A3x+Iar9/JScRtO+Nok43fcuvDDYFAdXHZVNeVUYS17yoQpRIvZ8LqV6zctdfpUiQzNFDjrSkJjZff0gPU15qwryEYCK91Oo67CdayZ223fitthvjAKF/qbGVkSKBkcHMBr2z4kqgSW0D4vTdZVXY8+qhZmpUk+6eDJMZ5tx8VrZwnZYZ55PXY=
   app: rest-servlet
 notifications:
   email:
     recipients:
-      - borninger@yandex.ru
+    - borninger@yandex.ru
     on_success: always
     on_failure: always
